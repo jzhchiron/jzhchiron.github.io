@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: 你的GitHub用户名/仓库名  # 例：zhangsan/zhangsan.github.io
+  branch: main  # 仓库主分支（通常是 main 或 master）
+  base_url: https://github.com  # 无需修改（国内可忽略）
+
+# 本地化（中文界面）
+locale: zh-CN
+
+# 配置可编辑的内容集合（对应 HugoBlox 的页面/组件）
+collections:
+  # 1. 编辑主页组件（Hero、About、Experience 等）
+  - name: "home"
+    label: "主页组件"
+    folder: "content/home"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "组件类型", name: "widget", widget: "string", required: true}
+      - {label: "是否无头组件", name: "headless", widget: "boolean", default: true}
+      - {label: "显示权重（越小越靠前）", name: "weight", widget: "number", default: 10}
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "副标题", name: "subtitle", widget: "string"}
+      - {label: "内容", name: "content", widget: "markdown", hint: "支持Markdown格式"}
+      - {label: "头像/图片", name: "image", widget: "image", media_folder: "static/images", public_folder: "/images"}
+
+  # 2. 编辑博客文章
+  - name: "posts"
+    label: "博客文章"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "日期", name: "date", widget: "datetime", default: "{{now}}"}
+      - {label: "摘要", name: "summary", widget: "text"}
+      - {label: "正文", name: "body", widget: "markdown"}
+      - {label: "标签", name: "tags", widget: "list", default: []}
+
+  # 3. 编辑自定义页面（如研究方向、关于页）
+  - name: "pages"
+    label: "自定义页面"
+    folder: "content"
+    create: true
+    slug: "{{slug}}"
+    filter: {field: "type", value: "page"}
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "正文", name: "body", widget: "markdown"}
+      - {label: "页面权重", name: "weight", widget: "number", default: 0}
