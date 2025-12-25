@@ -44,7 +44,7 @@ education:
   - degree: BS Philosophy
     institution: ECNU
     start: 2023-09-10
-    end: 2027-07
+    end: 2027-07-01
      summary: |
       Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
     button:
