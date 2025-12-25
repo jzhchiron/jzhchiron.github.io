@@ -45,7 +45,7 @@ education:
     institution: ECNU
     start: 2023-09-10
     end: 2027-07-01
-     summary: |
+    summary: |
       Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
     button:
       text: Download dissertation
