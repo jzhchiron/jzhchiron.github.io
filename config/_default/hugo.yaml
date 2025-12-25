@@ -53,11 +53,3 @@ security:
   _merge: deep
 sitemap:
   _merge: deep
-params:
-  # 基础 Favicon（浏览器地址栏图标）
-  favicon: "/favicon.ico"
-  # 品牌/Logo 配置（可选，用于站点内 Logo 展示）
-  branding:
-    logo: "/favicon.ico" # 若有站点 Logo，可配置
-    name: "Chiron" # 站点名称（与 title 一致即可）
- 
