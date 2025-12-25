@@ -9,8 +9,8 @@ name:
   pronunciation: 'Jīn Zhé Hào'  # Example: Wáng Wěi
 postnominals:
   - 
-status:
-  icon: "☕️"
+#status:
+ # icon: "☕️"
 role: Student
 bio: |
   Chiron is a researcher in Model Theory and Number Theory. His work and 
