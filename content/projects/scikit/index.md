@@ -3,7 +3,7 @@ title: Dynamic Neuro-Symbolic AI
 date: 2025-12-25
 links:
   - type: site
-    url: https://github.com/scikit-learn/scikit-learn
+    url: https://github.com/jzh11111110111/Information-in-AI
 tags:
   - AI
   - Symbolic Logic
