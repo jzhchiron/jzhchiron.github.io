@@ -40,7 +40,7 @@ Use popular tools such as Algebraic Semantics, Logical Neural Network, and Trans
 
 For the official recruitment details, please refer to the content on this page.
 
-{{< embed url="https://github.com/jzh11111110111/Information-in-AI/blob/Real-time-Info/Info202512.md" description="Official Recruitment Details" width="300" height="200" >}}
+{{< embed url="https://github.com/jzh11111110111/Information-in-AI/blob/Real-time-Info/Info202512.md" description="Official Recruitment Details" width="600" height="400" >}}
 
 ### Custom Images
 
