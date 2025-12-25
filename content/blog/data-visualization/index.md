@@ -1,7 +1,7 @@
 ---
 title:  Recruiting for the Dynamic Neuro-Symbolic AI Team
 summary: Use popular tools such as Algebraic Semantics, Logical Neural Network, and Transformer Architecture.
-date: 2026-2-23
+date: 2025-12-25
 authors:
   - me
 tags:
