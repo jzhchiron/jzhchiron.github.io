@@ -2,7 +2,7 @@ schema: hugoblox/author/v1
 slug: me
 is_owner: true
 name:
-  display: Zhehao Jin (Chiron) 金哲浩
+  display: Zhehao Jin (Chiron)
   given: Zhehao
   family: Jin
   alternate: ['金哲浩', 'Chiron']
@@ -32,7 +32,7 @@ links:
   - icon: academicons/google-scholar
     url: https://scholar.google.com/citations?user=example
   - icon: academicons/orcid
-    url: https://orcid.org/0000-0002-1825-0097
+    url: https://orcid.org/0009-0002-5541-4166
 
 interests:
   - Intersection of Model Theory and Number Theory
