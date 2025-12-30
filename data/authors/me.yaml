@@ -2,7 +2,7 @@ schema: hugoblox/author/v1
 slug: me
 is_owner: true
 name:
-  display: Zhehao Jin (Chiron)
+  display: Zhehao Jin (Chiron) 金哲浩
   given: Zhehao
   family: Jin
   alternate: ['金哲浩', 'Chiron']
@@ -15,7 +15,7 @@ bio: |
   Chiron is a researcher in Model Theory and Number Theory 
   with contributions in Computer Science and Software Engineering.
   
-    Chiron's work and life centers round Truth and truths.
+    Chiron's work and life centers round Truth and truths, mainly mentored by Yang Guorong(杨国荣) in Philosophy.
 
 affiliations:
   - name: East China Normal University
