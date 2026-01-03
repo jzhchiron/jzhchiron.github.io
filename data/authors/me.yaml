@@ -12,10 +12,8 @@ status:
   icon: ♾️
 role: Student
 bio: |
-  Chiron is a researcher in Model Theory and Number Theory, and also contributes to Computer Science and Software Engineering.
-  
-    Chiron's work and life centers round Truth and truths, primarily mentored by Yang Guorong(杨国荣) in Philosophy.
-
+  Chiron is a researcher in Model Theory, with a focus on its interactions with Number Theory.
+  Chiron has a background in philosophy, which informs his interest in the foundational aspects of mathematics.
 affiliations:
   - name: East China Normal University
     url: https://www.ecnu.edu.cn/
@@ -46,7 +44,7 @@ education:
     start: 2023-09-10
     end: 2027-07-01
     summary: |
-      Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
+      Primarily mentored by Yang Guorong(杨国荣), Chiron's work and life centers round Truth and truths.
     button:
       text: Download dissertation
       url: /resume.pdf
