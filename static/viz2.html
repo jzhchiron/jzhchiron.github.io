@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伦理生活视域下老年人数字化生存研究 · 数据可视化报告</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F1EB;--paper:#FDFBF7;--sur:#FFFFFF;--bdr:#DDD9CE;--blue:#2B5F8C;--b2:#5B8FC0;--org:#C0592A;--grn:#2E7D5E;--tel:#2A7D8E;--gry:#A09C93;--txt:#1A1917;--mut:#6E6A62;--r:10px;--sh:0 2px 18px rgba(0,0,0,.07)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Noto Sans SC',sans-serif;font-size:15px;line-height:1.75}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:rgba(253,251,247,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 32px;height:52px;overflow-x:auto;gap:0}
+.brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:var(--blue);white-space:nowrap;margin-right:24px;flex-shrink:0}
+.nav-links{display:flex;gap:2px}
+.nav-links a{text-decoration:none;color:var(--mut);font-size:12px;padding:5px 11px;border-radius:20px;transition:all .2s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--blue);background:#EBF2F9}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1A3A54 0%,#2B5F8C 55%,#1E6B52 100%);color:white;padding:72px 40px 64px}
+.hero-inner{max-width:960px;margin:0 auto}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:.08em;margin-bottom:22px;font-family:'IBM Plex Mono',monospace}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,38px);font-weight:700;line-height:1.35;margin-bottom:16px}
+.hero p{font-size:14px;opacity:.72;max-width:580px;margin-bottom:32px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hs{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:14px 20px;min-width:120px}
+.hs .n{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;line-height:1;display:block;margin-bottom:4px}
+.hs .l{font-size:11px;opacity:.62}
+
+/* LAYOUT */
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+section{padding:56px 0}
+section:nth-child(even){background:var(--paper)}
+.sh{margin-bottom:32px}
+.stag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--blue);background:#EBF2F9;border-radius:4px;padding:3px 9px;margin-bottom:10px;text-transform:uppercase}
+.sh h2{font-family:'Noto Serif SC',serif;font-size:23px;font-weight:700;line-height:1.35}
+.sh p{color:var(--mut);margin-top:8px;max-width:580px;font-size:14px}
+
+/* CARDS */
+.card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);padding:20px 24px}
+.ct{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:16px;display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--bdr)}
+.ct::before{content:'';display:inline-block;width:3px;height:14px;background:var(--blue);border-radius:2px;flex-shrink:0}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.s2{grid-column:span 2}
+
+/* CHART HEIGHTS */
+.ch{width:100%;height:340px}
+.chsm{width:100%;height:260px}
+.chlg{width:100%;height:400px}
+.chart-loading{display:flex;align-items:center;justify-content:center;background:#F8F6F2;border-radius:6px;color:var(--mut);font-size:13px}
+
+/* KPI */
+.kpig{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:14px;text-align:center}
+.kpi .n{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--blue);display:block;line-height:1;margin-bottom:5px}
+.kpi .l{font-size:11px;color:var(--mut)}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap}
+.tb{padding:5px 14px;border-radius:6px;border:1px solid var(--bdr);background:transparent;cursor:pointer;font-size:12px;color:var(--mut);font-family:'Noto Sans SC',sans-serif;transition:all .2s}
+.tb.active,.tb:hover{background:var(--blue);color:white;border-color:var(--blue)}
+
+/* FINDING BOXES */
+.fin{border-left:3px solid var(--blue);padding:11px 14px;background:#EBF2F9;border-radius:0 8px 8px 0;margin-bottom:9px}
+.fin.or{border-color:var(--org);background:#FDF0EB}
+.fin.gr{border-color:var(--grn);background:#EBF5F1}
+.fin strong{color:var(--blue);font-size:12px;display:block;margin-bottom:2px}
+.fin.or strong{color:var(--org)}
+.fin.gr strong{color:var(--grn)}
+.fin p{font-size:12px;line-height:1.6}
+
+/* TABLE */
+.rtab{width:100%;border-collapse:collapse;font-size:13px}
+.rtab th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--bdr);font-weight:600;color:var(--mut);font-size:11px;background:#F8F6F2}
+.rtab td{padding:7px 10px;border-bottom:1px solid #F0EDE6}
+.rtab tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:2px 7px;border-radius:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600}
+.bh{background:#D4EDDA;color:#1A6B36}
+.bm{background:#FFF3CD;color:#856404}
+.bo{background:#D1ECF1;color:#0C5460}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--sur);border-radius:12px;max-width:900px;width:95%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal-head{padding:18px 24px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-head h3{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700}
+.modal-close{background:none;border:none;cursor:pointer;color:var(--mut);font-size:22px;padding:4px 8px;border-radius:6px;transition:all .2s}
+.modal-close:hover{background:#F0EDE6;color:var(--txt)}
+.modal-body{overflow-y:auto;padding:20px 24px;flex:1}
+.modal-table{width:100%;border-collapse:collapse;font-size:13px}
+.modal-table th{background:#F8F6F2;padding:8px 12px;text-align:left;border-bottom:2px solid var(--bdr);font-size:12px;color:var(--mut);font-weight:600;position:sticky;top:0}
+.modal-table td{padding:7px 12px;border-bottom:1px solid #F0EDE6}
+.modal-table tr:hover td{background:#F8F6F2}
+.modal-table .mono{font-family:'IBM Plex Mono',monospace;font-size:12px}
+
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;border:1px solid var(--bdr);background:var(--sur);color:var(--blue);cursor:pointer;font-size:13px;font-family:'Noto Sans SC',sans-serif;transition:all .2s;font-weight:500}
+.btn:hover{background:var(--blue);color:white;border-color:var(--blue)}
+.btn-primary{background:var(--blue);color:white;border-color:var(--blue)}
+.btn-primary:hover{background:#1E4A70}
+
+/* QUESTIONNAIRE CARDS */
+.q-card{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:16px;margin-bottom:10px}
+.q-dim{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.q-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #F0EDE6;font-size:13px}
+.q-item:last-child{border-bottom:none}
+.q-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mut);width:52px;flex-shrink:0;padding-top:2px}
+.q-scale{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--grn);white-space:nowrap;padding-top:2px}
+
+/* SCALE BADGE */
+.scale-tag{display:inline-block;background:#EBF5F1;color:var(--grn);border-radius:4px;padding:2px 8px;font-size:11px;font-family:'IBM Plex Mono',monospace;margin-left:6px}
+
+/* FOOTER */
+footer{background:#1A1917;color:rgba(255,255,255,.4);text-align:center;padding:24px;font-size:12px;font-family:'IBM Plex Mono',monospace}
+
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}.s2{grid-column:span 1}.hero{padding:44px 18px 48px}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">老年人数字化生存研究</span>
+  <div class="nav-links">
+    <a href="#bg">宏观背景</a>
+    <a href="#sample">样本描述</a>
+    <a href="#cross">交叉分析</a>
+    <a href="#quest">问卷量表</a>
+    <a href="#rel">信效度</a>
+    <a href="#corr">相关性</a>
+    <a href="#reg">回归分析</a>
+    <a href="#concl">研究结论</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">RESEARCH · DATA VISUALIZATION · 2024</div>
+    <h1>伦理生活视域下<br>老年人数字化生存研究</h1>
+    <p>基于全国大型追踪调查数据（N=19,395），探究老年群体数字化融入的影响因素、认知效益与伦理生活质量——安全感、和谐感与尊严感的量表分析。</p>
+    <div class="hero-stats">
+      <div class="hs"><span class="n">19,395</span><span class="l">有效样本量</span></div>
+      <div class="hs"><span class="n">40.7%</span><span class="l">老年人使用网络</span></div>
+      <div class="hs"><span class="n">61.57</span><span class="l">平均年龄（岁）</span></div>
+      <div class="hs"><span class="n">63.4%</span><span class="l">来自农村地区</span></div>
+      <div class="hs"><span class="n">11.08亿</span><span class="l">全国网民（2024.12）</span></div>
+    </div>
+    <div style="margin-top:20px">
+      <button class="btn btn-primary" onclick="openModal()">📊 查看完整描述性统计数据</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     01 宏观背景
+═══════════════════════════════════════ -->
+<section id="bg">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">01 · 宏观背景</div>
+    <h2>全国互联网发展趋势（2021—2024）</h2>
+    <p>来源：CNNIC 历次互联网发展状况统计报告，追踪 7 个时间节点的网民规模、老年群体上网状况及城乡差异。</p>
+  </div>
+
+  <!-- 1st row: fixed top spacing -->
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">全国网民规模与互联网普及率</div>
+      <div id="c1" class="ch chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">60岁以上老年网民 vs 非网民规模（亿）</div>
+      <div id="c2" class="ch chart-loading">图表加载中…</div>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">城镇 vs 农村互联网普及率</div>
+      <div id="c3" class="ch chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">非网民不上网原因构成（亿，堆叠）</div>
+      <!-- FIX #2: extra bottom padding for legend -->
+      <div id="c4" class="ch chart-loading" style="height:360px">图表加载中…</div>
+    </div>
+  </div>
+  <!-- FIX #8: chart from 图片数据分析 – proportional 100% stacked -->
+  <div class="card">
+    <div class="ct">非网民不上网原因结构占比变化（100% 堆叠，来自图片数据分析）</div>
+    <div id="c4b" class="ch chart-loading">图表加载中…</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     02 样本描述
+═══════════════════════════════════════ -->
+<section id="sample">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">02 · 样本描述性统计</div>
+    <h2>受访老年人群基本特征</h2>
+    <p>N=19,395，覆盖 55 岁及以上老年群体，数据来自全国大型追踪调查，记录人口学、健康、家庭与数字化多维信息。</p>
+  </div>
+  <div class="kpig">
+    <div class="kpi"><span class="n">61.57</span><span class="l">平均年龄（岁）</span></div>
+    <div class="kpi"><span class="n">53.1%</span><span class="l">女性比例</span></div>
+    <div class="kpi"><span class="n">83.8%</span><span class="l">已婚比例</span></div>
+    <div class="kpi"><span class="n">85%</span><span class="l">有社会养老保险</span></div>
+    <div class="kpi"><span class="n">95.2%</span><span class="l">有社会医疗保险</span></div>
+    <div class="kpi"><span class="n">3.60</span><span class="l">认知均值（/5）</span></div>
+    <div class="kpi"><span class="n">8.62</span><span class="l">抑郁量表均值</span></div>
+    <div class="kpi"><span class="n">2.18</span><span class="l">健康状况均值（/4）</span></div>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">年龄结构分布</div>
+      <div id="c5" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">受教育程度分布（有效样本 N=1,708）</div>
+      <div id="c5b" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+  <div class="g3" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">健康状况分布</div>
+      <div id="c7" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">收入水平分布</div>
+      <div id="c8" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">数字化融入程度分布</div>
+      <div id="c6" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">与子女联系频率（线下见面 vs 数字设备）</div>
+      <div id="c10" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">子女关系满意度分布</div>
+      <div id="c9" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     03 交叉分析
+═══════════════════════════════════════ -->
+<section id="cross">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">03 · 分组交叉分析</div>
+    <h2>数字化行为的群体差异</h2>
+    <p>基于实际调查计数数据，呈现年龄、性别、城乡、受教育程度与数字化融入、网络使用的交叉关系。</p>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">各年龄组 × 数字化融入程度（%，100%堆叠）</div>
+      <div id="cx1" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">城乡 × 数字化融入程度（%，100%堆叠）</div>
+      <div id="cx2" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">受教育程度 × 网络使用率（%）</div>
+      <div id="cx3" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">收入水平 × 网络使用率（%）</div>
+      <div id="cx4" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+  <div class="g3">
+    <div class="fin">
+      <strong>年龄差异</strong>
+      <p>75—84岁组数字化融入偏低比例最高（63.2%为「低」），55—64岁组高融入比例最高（2.5%为「高」），但差异相对有限，说明年龄并非唯一决定因素。</p>
+    </div>
+    <div class="fin or">
+      <strong>城乡鸿沟</strong>
+      <p>城镇老年人数字化融入「较高/高」占比达24.2%，显著高于农村的15.9%。农村使用网络率仅36.4%，城镇达48.1%。</p>
+    </div>
+    <div class="fin gr">
+      <strong>教育跃升</strong>
+      <p>高中及以上学历老年人使用网络率达57%，远超文盲群体的39.4%。教育提升带来数字化参与的显著跃升。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     04 问卷量表详情
+═══════════════════════════════════════ -->
+<section id="quest">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">04 · 问卷量表详情</div>
+    <h2>安全感 · 和谐感 · 尊严感测量体系</h2>
+    <p>展示三大伦理生活量表的题目设计、赋值方式及最终纳入分析的维度结构（经信效度检验调整后）。</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tb active" onclick="switchQ('aqg',this)">安全感量表</button>
+    <button class="tb" onclick="switchQ('hxg',this)">和谐感量表</button>
+    <button class="tb" onclick="switchQ('znq',this)">尊严感量表</button>
+  </div>
+
+  <!-- 安全感 -->
+  <div id="qtab-aqg">
+    <div class="g2" style="margin-bottom:16px">
+      <div>
+        <div class="q-card">
+          <div class="q-dim">维度一：技术应用安全感知 <span class="scale-tag">1—4分</span></div>
+          <div class="q-item"><span class="q-num">安全感1.1</span><span>指纹/人脸解锁手机的安全性感知</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感1.2</span><span>公共场所连接免费WiFi的风险判断</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">安全感1.3</span><span>手机系统更新/安全提示的处理方式</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">安全感1.4</span><span>总体上对数字设备的信任感知</span><span class="q-scale">已删除</span></div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim">维度二：智能设备安全感 <span class="scale-tag">1—4分</span></div>
+          <div class="q-item"><span class="q-num">安全感2.1</span><span>连接免费WiFi的风险程度</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感2.2</span><span>对智能门锁故障的担忧程度</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">安全感2.3</span><span>手机系统更新的处理方式</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感2.4</span><span>健康监测设备数据的信任程度</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">安全感2.5</span><span>总体数字化安全感综合评价</span><span class="q-scale">已删除</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="q-card">
+          <div class="q-dim">维度三：社会支持安全感 <span class="scale-tag">1—4分</span></div>
+          <div class="q-item"><span class="q-num">安全感3.1</span><span>听说电信诈骗时的感受与应对</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感3.2</span><span>手机问题时优先求助方式</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感3.3</span><span>安全防护知识的掌握程度</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">安全感3.4</span><span>社会支持网络对安全感的影响</span><span class="q-scale">已删除</span></div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim">维度四：智能设备安全感 <span class="scale-tag">1—4分</span></div>
+          <div class="q-item"><span class="q-num">安全感4.1</span><span>对智能门锁故障的担忧</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">安全感4.2</span><span>智能门锁担心程度（已调整纳入）</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感4.3</span><span>健康监测设备数据准确性信任</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">安全感4.4</span><span>数字安全总体感受</span><span class="q-scale">已删除</span></div>
+        </div>
+        <div class="fin" style="margin-top:10px">
+          <strong>最终纳入结构（调整后）</strong>
+          <p>维度一（安全感1.1+2.1+2.3）· 维度二（安全感3.1+3.2）· 维度三（安全感4.2+4.3）；共 7 个题项，Cronbach α 均 ≥ 0.65，McDonald ω 均 ≥ 0.85。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">安全感各维度信度指标（调整后）</div>
+      <div id="qc1" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+
+  <!-- 和谐感 -->
+  <div id="qtab-hxg" style="display:none">
+    <div class="g2" style="margin-bottom:16px">
+      <div>
+        <div class="q-card">
+          <div class="q-dim">维度一：社交主动和谐感 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">和谐感1.1</span><span>使用微信/抖音等分享生活的频率</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">和谐感1.2</span><span>用数字设备与亲友保持联系的频率</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感1.3</span><span>社交主动性的综合感知</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">和谐感1.4</span><span>视频通话对亲密关系的促进</span><span class="q-scale">纳入✓</span></div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim">维度二：情感联结和谐感 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">和谐感2.1</span><span>与远方朋友的关系促进程度</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感2.2</span><span>网络沟通替代书信的效果感知</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">和谐感2.3</span><span>视频通话对家人情感联结的帮助</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感2.4</span><span>数字沟通频率对亲情的影响</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">和谐感2.5</span><span>线上关系与线下关系的互补性</span><span class="q-scale">已删除</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="q-card">
+          <div class="q-dim">维度三：社会参与和谐感 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">和谐感3.1</span><span>通过手机观看网络课程的频率</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感3.2</span><span>使用手机缴费/办理业务的频率</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感3.3</span><span>参与网上投票/捐款等社会活动</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感3.4</span><span>使用数字设备了解时政新闻</span><span class="q-scale">纳入✓</span></div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim">维度四：社会融入和谐感 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">和谐感4.1</span><span>数字化参与后与时代同步的感知</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">和谐感4.2</span><span>数字技术缩小城乡/代际差距的感知</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">和谐感4.3</span><span>总体社会融入感综合评价</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">和谐感4.4</span><span>使用手机后与社会的联结感</span><span class="q-scale">纳入✓</span></div>
+        </div>
+        <div class="fin gr" style="margin-top:10px">
+          <strong>最终纳入结构（调整后）</strong>
+          <p>4个维度共10个题项，KMO=0.826，和谐感量表整体信效度最佳，维度三（社会参与）ω=0.920。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">和谐感各维度信度指标（调整后）</div>
+      <div id="qc2" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+
+  <!-- 尊严感 -->
+  <div id="qtab-znq" style="display:none">
+    <div class="g2" style="margin-bottom:16px">
+      <div>
+        <div class="q-card">
+          <div class="q-dim">维度一：数字独立自主性 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">尊严感1.1</span><span>用数字设备独立办理生活事务</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感1.2</span><span>遇到问题时先通过网络自行解决</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">尊严感1.3</span><span>会用数字设备后找子女帮忙次数减少</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感1.4</span><span>数字独立能力的总体自评</span><span class="q-scale">已删除</span></div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim">维度二：数字尊重体验 <span class="scale-tag">1—4分</span></div>
+          <div class="q-item"><span class="q-num">尊严感2.1</span><span>朋友圈点赞/评论时的愉悦感</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感2.2</span><span>他人认真回复留言的感知</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感2.3</span><span>数字空间中被尊重的整体体验</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感2.4</span><span>线上互动中的价值认同感</span><span class="q-scale">纳入✓</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="q-card">
+          <div class="q-dim">维度三：数字话语权 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">尊严感3.1</span><span>微信群提建议后他人的反应</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感3.2</span><span>线上反映问题后能得到处理的频率</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感3.3</span><span>数字话语权的综合感知</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感3.4</span><span>在社区/平台中的影响力</span><span class="q-scale">已删除</span></div>
+        </div>
+        <div class="q-card">
+          <div class="q-dim">维度四：总体尊严感 <span class="scale-tag">1—5分</span></div>
+          <div class="q-item"><span class="q-num">尊严感4.1</span><span>进入数字化社会后的整体尊严感</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感4.2</span><span>数字社会中老年人是否更受尊重</span><span class="q-scale">纳入✓</span></div>
+          <div class="q-item"><span class="q-num">尊严感4.3</span><span>与年轻人共同使用数字工具的体验</span><span class="q-scale">已删除</span></div>
+          <div class="q-item"><span class="q-num">尊严感4.4</span><span>数字化带来的社会地位改变感知</span><span class="q-scale">已删除</span></div>
+        </div>
+        <div class="fin or" style="margin-top:10px">
+          <strong>最终纳入结构（调整后）</strong>
+          <p>4个维度共11个题项，KMO=0.846，所有维度 α ≥ 0.80，McDonald ω ≥ 0.91，信度质量最高。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">尊严感各维度信度指标（调整后）</div>
+      <div id="qc3" class="chsm chart-loading">图表加载中…</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     05 信效度
+═══════════════════════════════════════ -->
+<section id="rel">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">05 · 量表信效度分析</div>
+    <h2>安全感 · 和谐感 · 尊严感信效度评估</h2>
+    <p>Cronbach's α 与 McDonald's ω 双重指标 + 探索性因子分析（EFA）结构效度验证。</p>
+  </div>
+  <div class="tabs">
+    <button class="tb active" onclick="switchScale('aqg',this)">安全感</button>
+    <button class="tb" onclick="switchScale('hxg',this)">和谐感</button>
+    <button class="tb" onclick="switchScale('znq',this)">尊严感</button>
+  </div>
+
+  <div id="tab-aqg">
+    <div class="g2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="ct">维度调整后信度系数汇总</div>
+        <table class="rtab">
+          <thead><tr><th>维度</th><th>题项数</th><th>Cronbach α</th><th>McDonald ω</th><th>评级</th></tr></thead>
+          <tbody>
+            <tr><td>维度一（技术安全）</td><td>3</td><td>0.737</td><td>0.856</td><td><span class="badge bh">良好</span></td></tr>
+            <tr><td>维度二（社会支持）</td><td>2</td><td>0.658</td><td>0.855</td><td><span class="badge bo">可接受</span></td></tr>
+            <tr><td>维度三（智能设备）</td><td>2</td><td>0.780</td><td>0.902</td><td><span class="badge bh">良好</span></td></tr>
+          </tbody>
+        </table>
+        <div class="fin" style="margin-top:12px"><strong>效度说明</strong><p>KMO=0.549，累积方差解释率75.69%（3因子），调整后结构有效提取安全感信息。原安全感1与2维度交叉融合，重组为新技术安全维度。</p></div>
+      </div>
+      <div class="card">
+        <div class="ct">α 与 ω 信度系数对比</div>
+        <div id="cr1" class="chsm chart-loading">图表加载中…</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-hxg" style="display:none">
+    <div class="g2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="ct">维度调整后信度系数汇总</div>
+        <table class="rtab">
+          <thead><tr><th>维度</th><th>题项数</th><th>Cronbach α</th><th>McDonald ω</th><th>评级</th></tr></thead>
+          <tbody>
+            <tr><td>维度一（社交主动）</td><td>2</td><td>0.610</td><td>0.839</td><td><span class="badge bo">可接受</span></td></tr>
+            <tr><td>维度二（情感联结）</td><td>2</td><td>0.722</td><td>0.881</td><td><span class="badge bh">良好</span></td></tr>
+            <tr><td>维度三（社会参与）</td><td>4</td><td>0.878</td><td>0.920</td><td><span class="badge bh">高</span></td></tr>
+            <tr><td>维度四（社会融入）</td><td>2</td><td>0.781</td><td>0.904</td><td><span class="badge bh">良好</span></td></tr>
+          </tbody>
+        </table>
+        <div class="fin gr" style="margin-top:12px"><strong>效度说明</strong><p>KMO=0.826，累积方差解释率78.92%（4因子），和谐感量表整体信效度最佳，维度三（社会参与）ω=0.920 表现尤为突出。</p></div>
+      </div>
+      <div class="card">
+        <div class="ct">α 与 ω 信度系数对比</div>
+        <div id="cr2" class="chsm chart-loading">图表加载中…</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-znq" style="display:none">
+    <div class="g2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="ct">维度调整后信度系数汇总</div>
+        <table class="rtab">
+          <thead><tr><th>维度</th><th>题项数</th><th>Cronbach α</th><th>McDonald ω</th><th>评级</th></tr></thead>
+          <tbody>
+            <tr><td>维度一（数字独立）</td><td>2</td><td>0.800</td><td>0.910</td><td><span class="badge bh">高</span></td></tr>
+            <tr><td>维度二（数字尊重）</td><td>4</td><td>0.912</td><td>0.939</td><td><span class="badge bh">高</span></td></tr>
+            <tr><td>维度三（数字话语权）</td><td>3</td><td>0.855</td><td>0.913</td><td><span class="badge bh">高</span></td></tr>
+            <tr><td>维度四（总体尊严）</td><td>2</td><td>0.810</td><td>0.914</td><td><span class="badge bh">高</span></td></tr>
+          </tbody>
+        </table>
+        <div class="fin or" style="margin-top:12px"><strong>效度说明</strong><p>KMO=0.846，累积方差解释率84.40%（4因子），尊严感所有维度 α≥0.80，McDonald ω≥0.91，信度质量最高。</p></div>
+      </div>
+      <div class="card">
+        <div class="ct">α 与 ω 信度系数对比</div>
+        <div id="cr3" class="chsm chart-loading">图表加载中…</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="ct">三大量表效度指标综合对比（KMO值 & 累积方差解释率）</div>
+    <div id="c12" class="chsm chart-loading">图表加载中…</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     06 相关性
+═══════════════════════════════════════ -->
+<section id="corr">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">06 · 相关性分析</div>
+    <h2>数字化融入与各因素的相关关系</h2>
+    <p>皮尔逊相关分析揭示个体特征、健康状况、心理因素与数字化融入之间的关联强度与方向。</p>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="ct">各因素与数字化融入程度的相关系数（r 值）</div>
+    <!-- FIX #3: labels use dark color + fontWeight -->
+    <div id="c13" class="ch chart-loading">图表加载中…</div>
+  </div>
+  <div class="g3" style="margin-bottom:16px">
+    <div class="fin"><strong>促进因素（正相关）</strong><p>受教育程度（r=0.148）和健康状况（r=0.122）是最重要的个体正向因素。城镇居住（r=0.125）显示城乡数字鸿沟的存在。线上社交活动频率（r=0.089）也正向关联。</p></div>
+    <div class="fin or"><strong>阻碍因素（负相关）</strong><p>身体障碍（r=-0.201）是最强的负向影响因素，抑郁程度（r=-0.191）和孤独感（r=-0.097）亦显著阻碍老年人融入数字生活。年龄也呈微弱负相关（r=-0.009）。</p></div>
+    <div class="fin gr"><strong>高度关联</strong><p>使用网络与数字化融入程度高度相关（r=0.852），两者近乎同步变化。疫情下的安全感也与数字化融入正相关（r=0.020）。</p></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">国家级互联网指标相关矩阵（热力图）</div>
+      <div id="c14" class="ch chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">城镇 vs 农村老年人多维度对比</div>
+      <div id="c15" class="ch chart-loading">图表加载中…</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     07 回归分析
+═══════════════════════════════════════ -->
+<section id="reg">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">07 · 线性回归分析</div>
+    <h2>数字化融入的多元预测因素</h2>
+    <p>单变量与多变量线性回归模型，识别影响老年人数字化融入、认知功能、孤独感与记忆力的关键变量（Beta 标准化系数）。</p>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="ct">标准化 Beta 系数（气泡大小代表 R²）</div>
+    <div class="tabs">
+      <button class="tb active" onclick="switchReg('digital',this)">数字化融入</button>
+      <button class="tb" onclick="switchReg('cognition',this)">认知功能</button>
+      <button class="tb" onclick="switchReg('lonely',this)">孤独感</button>
+      <button class="tb" onclick="switchReg('memory',this)">记忆力</button>
+    </div>
+    <!-- FIX #4 & #9: white labels on bars, cleaner text -->
+    <div id="c16" class="chlg chart-loading">图表加载中…</div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">各多变量模型拟合度（调整后 R²）</div>
+      <div id="c17" class="chsm chart-loading">图表加载中…</div>
+    </div>
+    <div class="card">
+      <div class="ct">关键发现</div>
+      <div style="padding-top:2px">
+        <div class="fin" style="margin-bottom:8px"><strong>认知能力是核心驱动力</strong><p>对数字化融入的预测力最强（β=0.333，R²=0.111），同时也是记忆力的最强预测因素（β=0.253）。多变量模型中认知仍显著（β=0.252）。</p></div>
+        <div class="fin or" style="margin-bottom:8px"><strong>身体障碍阻碍最显著</strong><p>身体障碍对数字化融入的负向影响（β=-0.201）超过抑郁（β=-0.191），是最强生理阻碍因素。多变量分析中仍显著（β=-0.087）。</p></div>
+        <div class="fin gr" style="margin-bottom:8px"><strong>数字化缓解孤独有限</strong><p>数字化工具对孤独感的直接缓解效应有限（模型 R²&lt;1%），使用网络（β=-0.042）和数字化融入（β=-0.062）均显著但效应微弱。</p></div>
+        <div class="fin"><strong>认知保护路径</strong><p>数字化融入对认知（β=0.223）和记忆力（β=0.154）均有独立正向作用。在多变量认知模型中，R²=0.152，说明数字化融入、记忆力与教育共同解释15.2%的认知差异。</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     08 研究结论
+═══════════════════════════════════════ -->
+<section id="concl">
+<div class="wrap">
+  <div class="sh">
+    <div class="stag">08 · 研究结论与建议</div>
+    <h2>主要研究结论</h2>
+    <p>综合描述性统计、信效度分析、相关性及回归分析，得出以下核心结论。</p>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">三大量表 McDonald ω 综合雷达图</div>
+      <div id="c18" class="ch chart-loading">图表加载中…</div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:8px;justify-content:center">
+      <div class="fin"><strong>① 核心预测变量</strong><p>认知能力（β=0.333）、健康状况（β=0.122）和居住地城乡差异（β=0.125）是影响老年人数字化融入最重要的三个因素。</p></div>
+      <div class="fin or"><strong>② 主要阻碍因素</strong><p>身体障碍（β=-0.201）和抑郁（β=-0.191）是最强的负向预测因子，干预重点应放在改善老年人身体功能和心理健康上。</p></div>
+      <div class="fin gr"><strong>③ 认知保护路径存在</strong><p>数字化融入对认知功能（β=0.223，R²贡献显著）和记忆力（β=0.154）均有独立正向作用，提示数字技术使用具有认知保护价值。</p></div>
+      <div class="fin"><strong>④ 孤独感缓解需综合手段</strong><p>数字化工具对孤独感的直接作用极弱（R²&lt;1%），需结合社区参与、代际交流等多元干预才能真正缓解老年人孤独。</p></div>
+    </div>
+  </div>
+  <!-- FIX #5: policy matrix redesigned as table+scatter -->
+  <div class="card">
+    <div class="ct">政策建议优先级矩阵（影响力 × 可行性）</div>
+    <div id="c19" class="ch chart-loading" style="height:420px">图表加载中…</div>
+  </div>
+</div>
+</section>
+
+<footer>© 伦理生活视域下老年人数字化生存研究 · 数据可视化报告 · 基于 CNNIC 数据与全国追踪调查数据制作</footer>
+
+<!-- ═══════════════════════════════════════
+     MODAL: 原始数据
+═══════════════════════════════════════ -->
+<div class="modal-overlay" id="dataModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>📊 完整描述性统计数据</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--mut);margin-bottom:16px">以下数据来自问卷调查（N=19,395），包含所有分析变量的均值、标准差与样本量。</p>
+      <h4 style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--blue)">一、老年人样本变量</h4>
+      <table class="modal-table" style="margin-bottom:20px">
+        <thead><tr><th>变量</th><th>N</th><th>均值</th><th>标准差</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>年龄</td><td class="mono">19,395</td><td class="mono">61.57</td><td class="mono">10.075</td><td>55岁以上老年群体</td></tr>
+          <tr><td>性别（0=男，1=女）</td><td class="mono">19,395</td><td class="mono">0.53</td><td class="mono">0.499</td><td>53.1%为女性</td></tr>
+          <tr><td>居住地（0=农村，1=城镇）</td><td class="mono">19,361</td><td class="mono">0.37</td><td class="mono">0.482</td><td>36.6%居住城镇</td></tr>
+          <tr><td>婚姻状况（0=其他，1=已婚）</td><td class="mono">19,395</td><td class="mono">0.84</td><td class="mono">0.368</td><td>83.8%已婚</td></tr>
+          <tr><td>受教育程度</td><td class="mono">1,708</td><td class="mono">2.13</td><td class="mono">1.362</td><td>0=文盲 → 4=高中以上</td></tr>
+          <tr><td>收入水平（年）</td><td class="mono">19,225</td><td class="mono">0.44</td><td class="mono">0.901</td><td>0=很低 → 4=很高</td></tr>
+          <tr><td>是否有社会养老保险</td><td class="mono">19,395</td><td class="mono">0.85</td><td class="mono">0.357</td><td>85%有社会养老保险</td></tr>
+          <tr><td>是否有社会医疗保险</td><td class="mono">19,395</td><td class="mono">0.95</td><td class="mono">0.214</td><td>95.2%有社会医疗保险</td></tr>
+          <tr><td>健康状况</td><td class="mono">17,576</td><td class="mono">2.18</td><td class="mono">1.186</td><td>1=很不好 → 4=很好</td></tr>
+          <tr><td>身体障碍</td><td class="mono">19,349</td><td class="mono">0.162</td><td class="mono">0.412</td><td>0=无，1=有</td></tr>
+          <tr><td>认知程度</td><td class="mono">17,572</td><td class="mono">3.60</td><td class="mono">1.370</td><td>0=极低 → 5=极高</td></tr>
+          <tr><td>记忆力水平</td><td class="mono">17,516</td><td class="mono">0.80</td><td class="mono">0.628</td><td>连续测量</td></tr>
+          <tr><td>抑郁程度（CES-D）</td><td class="mono">16,165</td><td class="mono">8.62</td><td class="mono">6.447</td><td>得分越高抑郁越重</td></tr>
+          <tr><td>孤独感</td><td class="mono">17,309</td><td class="mono">0.58</td><td class="mono">0.998</td><td>0=无，连续变量</td></tr>
+          <tr><td>生活满意度</td><td class="mono">17,566</td><td class="mono">2.27</td><td class="mono">0.794</td><td>量表测量</td></tr>
+        </tbody>
+      </table>
+      <h4 style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--blue)">二、数字化相关变量</h4>
+      <table class="modal-table" style="margin-bottom:20px">
+        <thead><tr><th>变量</th><th>N</th><th>均值</th><th>标准差</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>使用网络</td><td class="mono">19,349</td><td class="mono">0.41</td><td class="mono">0.491</td><td>40.7%使用网络</td></tr>
+          <tr><td>数字化融入程度</td><td class="mono">19,395</td><td class="mono">1.73</td><td class="mono">2.321</td><td>0=低 → 8=高</td></tr>
+          <tr><td>线下社交活动种类</td><td class="mono">19,367</td><td class="mono">0.78</td><td class="mono">1.020</td><td>活动种类数</td></tr>
+          <tr><td>线下社交活动频率</td><td class="mono">9,296</td><td class="mono">0.93</td><td class="mono">0.873</td><td>频率量表</td></tr>
+          <tr><td>疫情下线上社交频率</td><td class="mono">19,370</td><td class="mono">1.85</td><td class="mono">1.731</td><td>量表测量</td></tr>
+          <tr><td>疫情下的安全感</td><td class="mono">18,528</td><td class="mono">4.45</td><td class="mono">2.824</td><td>量表测量</td></tr>
+        </tbody>
+      </table>
+      <h4 style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--blue)">三、频率分布：数字化融入程度</h4>
+      <table class="modal-table" style="margin-bottom:20px">
+        <thead><tr><th>类别</th><th>频率</th><th>百分比</th><th>累计百分比</th></tr></thead>
+        <tbody>
+          <tr><td>低</td><td class="mono">11,901</td><td class="mono">61.4%</td><td class="mono">61.4%</td></tr>
+          <tr><td>较低</td><td class="mono">2,036</td><td class="mono">10.5%</td><td class="mono">71.9%</td></tr>
+          <tr><td>一般</td><td class="mono">1,782</td><td class="mono">9.2%</td><td class="mono">81.0%</td></tr>
+          <tr><td>较高</td><td class="mono">3,225</td><td class="mono">16.6%</td><td class="mono">97.7%</td></tr>
+          <tr><td>高</td><td class="mono">451</td><td class="mono">2.3%</td><td class="mono">100.0%</td></tr>
+        </tbody>
+      </table>
+      <h4 style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--blue)">四、子女及家庭相关变量</h4>
+      <table class="modal-table">
+        <thead><tr><th>变量</th><th>N</th><th>均值</th><th>标准差</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>子女数量</td><td class="mono">11,406</td><td class="mono">2.53</td><td class="mono">1.358</td><td>平均2.53个子女</td></tr>
+          <tr><td>子女见面频率（线下）</td><td class="mono">10,310</td><td class="mono">2.25</td><td class="mono">1.185</td><td>1=从不 → 5=几乎每天</td></tr>
+          <tr><td>子女联系频率（数字设备）</td><td class="mono">8,919</td><td class="mono">2.53</td><td class="mono">1.106</td><td>1=从不 → 5=几乎每天</td></tr>
+          <tr><td>子女关系满意度</td><td class="mono">17,248</td><td class="mono">2.55</td><td class="mono">0.736</td><td>1=不满意 → 3=满意</td></tr>
+          <tr><td>是否存在经济联系</td><td class="mono">10,211</td><td class="mono">0.63</td><td class="mono">0.484</td><td>62.6%存在经济联系</td></tr>
+          <tr><td>是否存在照料关系</td><td class="mono">11,168</td><td class="mono">0.65</td><td class="mono">0.477</td><td>65.2%存在照料关系</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function load(src,cb){
+    var s=document.createElement('script');s.src=src;
+    s.onload=cb;
+    s.onerror=function(){
+      if(src.indexOf('jsdelivr')>-1)load('https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js',cb);
+    };
+    document.head.appendChild(s);
+  }
+  load('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js',initAll);
+})();
+
+/* ───── MODAL ───── */
+function openModal(){document.getElementById('dataModal').classList.add('open')}
+function closeModal(){document.getElementById('dataModal').classList.remove('open')}
+window.openModal=openModal;window.closeModal=closeModal;
+
+/* ───── CHART INIT ───── */
+function initAll(){
+var B='#2B5F8C',B2='#5B8FC0',O='#C0592A',G='#2E7D5E',T='#2A7D8E',GY='#A09C93';
+var AX={axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{lineStyle:{color:'#F0EDE6'}},axisLabel:{color:'#6E6A62',fontSize:11}};
+var TS=['2021.12','2022.6','2022.12','2023.6','2023.12','2024.6','2024.12'];
+
+function si(id,opt){
+  try{
+    var el=document.getElementById(id);
+    if(!el)return null;
+    el.classList.remove('chart-loading');el.innerHTML='';
+    var c=echarts.init(el);c.setOption(opt);return c;
+  }catch(e){console.warn(id,e);return null;}
+}
+
+/* ─── 01 宏观背景 ─── */
+
+// c1: FIX #1 — larger top padding so yAxis names clear the card title
+var c1=si('c1',{
+  tooltip:{trigger:'axis'},
+  legend:{data:['网民规模（亿）','互联网普及率'],bottom:4,textStyle:{fontSize:11}},
+  grid:{left:52,right:64,bottom:44,top:44},
+  xAxis:[{type:'category',data:TS,...AX}],
+  yAxis:[
+    {type:'value',name:'亿人',min:9.5,max:12,...AX,nameTextStyle:{color:GY,fontSize:11},nameGap:6},
+    {type:'value',name:'普及率',min:.68,max:.82,axisLabel:{formatter:function(v){return(v*100).toFixed(0)+'%'},color:'#6E6A62',fontSize:11},splitLine:{show:false},axisLine:{lineStyle:{color:'#DDD9CE'}},nameTextStyle:{color:GY,fontSize:11},nameGap:6}
+  ],
+  series:[
+    {name:'网民规模（亿）',type:'bar',data:[10.32,10.51,10.67,10.79,10.92,11,11.08],itemStyle:{color:B,borderRadius:[4,4,0,0]},barMaxWidth:34},
+    {name:'互联网普及率',type:'line',yAxisIndex:1,data:[.73,.747,.756,.764,.775,.78,.786],smooth:true,lineStyle:{color:O,width:2.5},itemStyle:{color:O},symbol:'circle',symbolSize:6}
+  ]
+});
+
+var c2=si('c2',{
+  tooltip:{trigger:'axis'},
+  legend:{data:['60岁以上老年网民（亿）','60岁以上非网民（亿）'],bottom:4,textStyle:{fontSize:11}},
+  grid:{left:52,right:20,bottom:44,top:44},
+  xAxis:[{type:'category',data:TS,...AX}],
+  yAxis:[{type:'value',name:'亿',min:0,max:2.2,...AX,nameTextStyle:{color:GY,fontSize:11},nameGap:6}],
+  series:[
+    {name:'60岁以上老年网民（亿）',type:'bar',data:[1.19,1.2,1.53,1.4,1.7,1.57,1.56],itemStyle:{color:G,borderRadius:[4,4,0,0]},barMaxWidth:26},
+    {name:'60岁以上非网民（亿）',type:'bar',data:[1.56,1.51,1.29,1.4,1.26,1.92,1.41],itemStyle:{color:'#C8B7A6',borderRadius:[4,4,0,0]},barMaxWidth:26}
+  ]
+});
+
+var c3=si('c3',{
+  tooltip:{trigger:'axis',formatter:function(p){return p.map(function(i){return i.seriesName+': '+(i.value*100).toFixed(1)+'%'}).join('<br>')}},
+  legend:{data:['城镇普及率','农村普及率'],bottom:4,textStyle:{fontSize:11}},
+  grid:{left:58,right:20,bottom:44,top:20},
+  xAxis:[{type:'category',data:TS,...AX}],
+  yAxis:[{type:'value',min:.5,max:.92,axisLabel:{formatter:function(v){return(v*100).toFixed(0)+'%'},color:'#6E6A62',fontSize:11},splitLine:{lineStyle:{color:'#F0EDE6'}},axisLine:{lineStyle:{color:'#DDD9CE'}}}],
+  series:[
+    {name:'城镇普及率',type:'line',data:[.813,.829,.831,.851,.833,.853,.853],smooth:true,lineStyle:{color:B,width:2.5},itemStyle:{color:B},areaStyle:{color:'rgba(43,95,140,.09)'},symbol:'circle',symbolSize:6},
+    {name:'农村普及率',type:'line',data:[.576,.585,.618,.605,.665,.638,.674],smooth:true,lineStyle:{color:O,width:2.5},itemStyle:{color:O},areaStyle:{color:'rgba(192,89,42,.07)'},symbol:'circle',symbolSize:6}
+  ]
+});
+
+// c4 FIX #2: move legend further down, increase chart height, reduce grid bottom
+var c4=si('c4',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{bottom:-2,textStyle:{fontSize:10},orient:'horizontal',itemWidth:10,itemHeight:10},
+  grid:{left:52,right:20,bottom:70,top:20},
+  xAxis:[{type:'category',data:TS,...AX}],
+  yAxis:[{type:'value',name:'亿',...AX,nameTextStyle:{color:GY,fontSize:11}}],
+  series:[
+    {name:'不懂电脑/网络',type:'bar',stack:'a',data:[1.85,2.2,2,1.87,1.64,1.52,0.93],itemStyle:{color:B}},
+    {name:'文化程度限制',type:'bar',stack:'a',data:[0.98,1.01,0.92,0.85,0.86,0.83,0.63],itemStyle:{color:B2}},
+    {name:'年龄太大/太小',type:'bar',stack:'a',data:[0.6,0.72,0.82,0.5,0.65,0.47,0.33],itemStyle:{color:O}},
+    {name:'没有上网设备',type:'bar',stack:'a',data:[0.67,0.58,0.47,0.63,0.53,0.59,0.39],itemStyle:{color:G}}
+  ]
+});
+
+// c4b FIX #8: 100% stacked from 图片数据分析
+var r4=[[1.85,0.98,0.60,0.67],[2.2,1.01,0.72,0.58],[2,0.92,0.82,0.47],[1.87,0.85,0.50,0.63],[1.64,0.86,0.65,0.53],[1.52,0.83,0.47,0.59],[0.93,0.63,0.33,0.39]];
+function pct(row){var s=row.reduce(function(a,b){return a+b},0);return row.map(function(v){return+(v/s*100).toFixed(1)});}
+var p4=r4.map(pct);
+var c4b=si('c4b',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(params){return params[0].name+'<br>'+params.map(function(p){return p.marker+p.seriesName+': '+p.value+'%'}).join('<br>')}},
+  legend:{bottom:4,textStyle:{fontSize:11},itemWidth:10,itemHeight:10},
+  grid:{left:52,right:20,bottom:44,top:20},
+  xAxis:[{type:'category',data:TS,...AX}],
+  yAxis:[{type:'value',max:100,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},splitLine:{lineStyle:{color:'#F0EDE6'}},axisLine:{lineStyle:{color:'#DDD9CE'}}}],
+  series:[
+    {name:'不懂电脑/网络',type:'bar',stack:'b',data:p4.map(function(r){return r[0]}),itemStyle:{color:B}},
+    {name:'文化程度限制',type:'bar',stack:'b',data:p4.map(function(r){return r[1]}),itemStyle:{color:B2}},
+    {name:'年龄太大/太小',type:'bar',stack:'b',data:p4.map(function(r){return r[2]}),itemStyle:{color:O}},
+    {name:'没有上网设备',type:'bar',stack:'b',data:p4.map(function(r){return r[3]}),itemStyle:{color:G}}
+  ]
+});
+
+/* ─── 02 样本描述 ─── */
+var c5=si('c5',{tooltip:{trigger:'item',formatter:'{b}: {c}人 ({d}%)'},
+  series:[{type:'pie',radius:['40%','68%'],center:['50%','50%'],
+    data:[{value:6524,name:'55—64岁',itemStyle:{color:B}},{value:5119,name:'65—74岁',itemStyle:{color:B2}},{value:2202,name:'75—84岁',itemStyle:{color:O}}],
+    label:{formatter:'{b}\n{d}%',fontSize:12},emphasis:{itemStyle:{shadowBlur:8}}}]
+});
+
+var c5b=si('c5b',{tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  grid:{left:80,right:20,bottom:32,top:20},
+  xAxis:[{type:'value',axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},...AX}],
+  yAxis:[{type:'category',data:['文盲','半文盲','小学','初中','高中以上'],axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:[{type:'bar',data:[
+    {value:15.7,itemStyle:{color:'#C8B7A6',borderRadius:[0,4,4,0]}},
+    {value:19.6,itemStyle:{color:B2,borderRadius:[0,4,4,0]}},
+    {value:20.9,itemStyle:{color:T,borderRadius:[0,4,4,0]}},
+    {value:23.6,itemStyle:{color:B,borderRadius:[0,4,4,0]}},
+    {value:20.2,itemStyle:{color:G,borderRadius:[0,4,4,0]}}
+  ],barMaxWidth:28,label:{show:true,position:'right',formatter:function(p){return p.value+'%'},fontSize:11,color:'#6E6A62'}}]
+});
+
+var c6=si('c6',{tooltip:{trigger:'item',formatter:'{b}: {c}人 ({d}%)'},
+  series:[{type:'pie',radius:['38%','66%'],center:['50%','50%'],
+    data:[{value:11901,name:'低（61.4%）',itemStyle:{color:'#C8B7A6'}},{value:2036,name:'较低（10.5%）',itemStyle:{color:B2}},{value:1782,name:'一般（9.2%）',itemStyle:{color:T}},{value:3225,name:'较高（16.6%）',itemStyle:{color:G}},{value:451,name:'高（2.3%）',itemStyle:{color:'#1A4D35'}}],
+    label:{formatter:'{b}',fontSize:11},emphasis:{itemStyle:{shadowBlur:6}}}]
+});
+
+var c7=si('c7',{tooltip:{trigger:'item',formatter:'{b}: {c}人 ({d}%)'},
+  series:[{type:'pie',radius:['38%','66%'],center:['50%','50%'],
+    data:[{value:1170,name:'很不好（6.7%）',itemStyle:{color:'#D9534F'}},{value:3194,name:'不好（18.2%）',itemStyle:{color:O}},{value:8860,name:'一般（50.4%）',itemStyle:{color:GY}},{value:4352,name:'很好（24.8%）',itemStyle:{color:G}}],
+    label:{formatter:'{b}',fontSize:11},emphasis:{itemStyle:{shadowBlur:6}}}]
+});
+
+var c8=si('c8',{tooltip:{trigger:'item',formatter:'{b}: {c}人 ({d}%)'},
+  series:[{type:'pie',radius:['38%','66%'],center:['50%','50%'],
+    data:[{value:15209,name:'很低（79.1%）',itemStyle:{color:'#C8B7A6'}},{value:519,name:'较低（2.7%）',itemStyle:{color:B2}},{value:2755,name:'一般（14.3%）',itemStyle:{color:T}},{value:589,name:'较高（3.1%）',itemStyle:{color:G}},{value:153,name:'很高（0.8%）',itemStyle:{color:'#1A4D35'}}],
+    label:{formatter:'{b}',fontSize:11},emphasis:{itemStyle:{shadowBlur:6}}}]
+});
+
+var c9=si('c9',{tooltip:{trigger:'item',formatter:'{b}: {c}人 ({d}%)'},
+  series:[{type:'pie',radius:['38%','66%'],center:['50%','50%'],
+    data:[{value:212,name:'很不满意（1.2%）',itemStyle:{color:'#D9534F'}},{value:664,name:'不太满意（3.8%）',itemStyle:{color:O}},{value:7099,name:'比较满意（41.2%）',itemStyle:{color:B}},{value:8044,name:'非常满意（46.6%）',itemStyle:{color:G}},{value:1229,name:'极其满意（7.1%）',itemStyle:{color:'#1A4D35'}}],
+    label:{formatter:'{b}',fontSize:10},emphasis:{itemStyle:{shadowBlur:6}}}]
+});
+
+var c10=si('c10',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{data:['线下见面','数字设备联系'],bottom:6,textStyle:{fontSize:11}},
+  grid:{left:74,right:20,bottom:56,top:20},
+  xAxis:[{type:'value',max:50,...AX,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11}}],
+  yAxis:[{type:'category',data:['从不','一年多次','一月多次','一周多次','几乎每天'],axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:[
+    {name:'线下见面',type:'bar',data:[4.2,28.3,25.6,22,19.9],itemStyle:{color:B,borderRadius:[0,4,4,0]},barMaxWidth:16},
+    {name:'数字设备联系',type:'bar',data:[9.6,4.1,25.8,44.7,15.9],itemStyle:{color:O,borderRadius:[0,4,4,0]},barMaxWidth:16}
+  ]
+});
+
+/* ─── 03 交叉分析 ─── */
+// Age × digital (100% stacked)
+var ageRaw={
+  '75—84岁':[1391,202,165,390,54],
+  '65—74岁':[3153,545,486,836,99],
+  '55—64岁':[3992,694,585,1088,165]
+};
+var dgCats=['低','较低','一般','较高','高'];
+var dgColors=['#C8B7A6',B2,T,G,'#1A4D35'];
+function toPct(arr){var s=arr.reduce(function(a,b){return a+b},0);return arr.map(function(v){return+(v/s*100).toFixed(1)});}
+var ages=Object.keys(ageRaw);
+var cx1series=dgCats.map(function(cat,i){
+  return{name:cat,type:'bar',stack:'a',data:ages.map(function(age){return toPct(ageRaw[age])[i]}),itemStyle:{color:dgColors[i]}};
+});
+var cx1=si('cx1',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{data:dgCats,bottom:0,textStyle:{fontSize:11},itemWidth:10,itemHeight:10},
+  grid:{left:68,right:20,bottom:42,top:20},
+  xAxis:[{type:'value',max:100,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},...AX}],
+  yAxis:[{type:'category',data:ages,axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:cx1series
+});
+
+// Urban/Rural × digital (100% stacked)
+var urRaw={
+  '农村':[8069,1254,991,1767,189],
+  '城镇':[3813,777,788,1453,260]
+};
+var urKeys=Object.keys(urRaw);
+var cx2series=dgCats.map(function(cat,i){
+  return{name:cat,type:'bar',stack:'a',data:urKeys.map(function(k){return toPct(urRaw[k])[i]}),itemStyle:{color:dgColors[i]}};
+});
+var cx2=si('cx2',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{data:dgCats,bottom:0,textStyle:{fontSize:11},itemWidth:10,itemHeight:10},
+  grid:{left:52,right:20,bottom:42,top:20},
+  xAxis:[{type:'value',max:100,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},...AX}],
+  yAxis:[{type:'category',data:urKeys,axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:cx2series
+});
+
+// Education × network use rate
+var cx3=si('cx3',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  grid:{left:70,right:60,bottom:32,top:20},
+  xAxis:[{type:'category',data:['文盲','半文盲','小学','初中','高中以上'],...AX}],
+  yAxis:[{type:'value',max:70,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},...AX}],
+  series:[{type:'bar',
+    data:[
+      {value:+(106/269*100).toFixed(1),itemStyle:{color:'#C8B7A6',borderRadius:[4,4,0,0]}},
+      {value:+(132/334*100).toFixed(1),itemStyle:{color:B2,borderRadius:[4,4,0,0]}},
+      {value:+(143/356*100).toFixed(1),itemStyle:{color:T,borderRadius:[4,4,0,0]}},
+      {value:+(185/403*100).toFixed(1),itemStyle:{color:B,borderRadius:[4,4,0,0]}},
+      {value:+(196/344*100).toFixed(1),itemStyle:{color:G,borderRadius:[4,4,0,0]}}
+    ],barMaxWidth:42,
+    label:{show:true,position:'top',formatter:function(p){return p.value+'%'},fontSize:12,color:'#1A1917',fontWeight:600}}]
+});
+
+// Income × network use
+var cx4=si('cx4',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  grid:{left:52,right:60,bottom:32,top:20},
+  xAxis:[{type:'category',data:['很低','较低','一般','较高','很高'],...AX}],
+  yAxis:[{type:'value',max:70,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},...AX}],
+  series:[{type:'bar',
+    data:[
+      {value:+(5993/15197*100).toFixed(1),itemStyle:{color:'#C8B7A6',borderRadius:[4,4,0,0]}},
+      {value:+(189/519*100).toFixed(1),itemStyle:{color:B2,borderRadius:[4,4,0,0]}},
+      {value:+(1221/2752*100).toFixed(1),itemStyle:{color:T,borderRadius:[4,4,0,0]}},
+      {value:+(316/587*100).toFixed(1),itemStyle:{color:B,borderRadius:[4,4,0,0]}},
+      {value:+(92/153*100).toFixed(1),itemStyle:{color:G,borderRadius:[4,4,0,0]}}
+    ],barMaxWidth:42,
+    label:{show:true,position:'top',formatter:function(p){return p.value+'%'},fontSize:12,color:'#1A1917',fontWeight:600}}]
+});
+
+/* ─── 04 问卷量表信度图 ─── */
+var relInited={};
+function makeRelChart(id,dims,alphas,omegas){
+  return si(id,{
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+    legend:{data:['Cronbach α','McDonald ω'],bottom:0,textStyle:{fontSize:11}},
+    grid:{left:76,right:20,bottom:36,top:20},
+    xAxis:[{type:'value',min:.4,max:1,...AX}],
+    yAxis:[{type:'category',data:dims,axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+    series:[
+      {name:'Cronbach α',type:'bar',data:alphas,itemStyle:{color:B2,borderRadius:[0,4,4,0]},barMaxWidth:18,label:{show:true,position:'right',formatter:function(v){return v.value.toFixed(3)},fontSize:11,color:'#6E6A62'}},
+      {name:'McDonald ω',type:'bar',data:omegas,itemStyle:{color:G,borderRadius:[0,4,4,0]},barMaxWidth:18,label:{show:true,position:'right',formatter:function(v){return v.value.toFixed(3)},fontSize:11,color:'#6E6A62'}}
+    ]
+  });
+}
+
+/* ─── 05 信效度 KMO对比 ─── */
+var c12=si('c12',{
+  tooltip:{trigger:'axis'},
+  legend:{data:['KMO值','累积方差解释率（%）'],bottom:0,textStyle:{fontSize:11}},
+  grid:{left:56,right:68,bottom:36,top:20},
+  xAxis:[{type:'category',data:['安全感（调整后）','和谐感（调整后）','尊严感（调整后）'],...AX}],
+  yAxis:[
+    {type:'value',name:'KMO',min:.3,max:1,...AX,nameTextStyle:{color:GY,fontSize:11},nameGap:6},
+    {type:'value',name:'方差%',min:50,max:100,axisLabel:{formatter:function(v){return v+'%'},color:'#6E6A62',fontSize:11},splitLine:{show:false},axisLine:{lineStyle:{color:'#DDD9CE'}},nameTextStyle:{color:GY,fontSize:11},nameGap:6}
+  ],
+  series:[
+    {name:'KMO值',type:'bar',data:[0.549,0.826,0.846],itemStyle:{color:B,borderRadius:[4,4,0,0]},barMaxWidth:48,label:{show:true,position:'top',formatter:function(v){return v.value.toFixed(3)},fontSize:12,color:B,fontWeight:600}},
+    {name:'累积方差解释率（%）',type:'line',yAxisIndex:1,data:[75.69,78.92,84.40],smooth:true,lineStyle:{color:O,width:2.5},itemStyle:{color:O},symbol:'circle',symbolSize:8,
+      label:{show:true,position:'top',formatter:function(v){return v.value+'%'},fontSize:11,color:O}}
+  ]
+});
+
+/* ─── 06 相关性 ─── */
+var corrItems=[
+  {name:'使用网络',r:.852,p:'**'},{name:'受教育程度',r:.148,p:'**'},
+  {name:'居住地（城镇）',r:.125,p:'**'},{name:'健康状况',r:.122,p:'**'},
+  {name:'线上社交频率',r:.089,p:'**'},{name:'疫情安全感',r:.020,p:'*'},
+  {name:'年龄',r:-.009,p:'*'},{name:'孤独感',r:-.097,p:'**'},
+  {name:'抑郁程度',r:-.191,p:'**'},{name:'身体障碍',r:-.201,p:'**'}
+];
+// FIX #3: dark label color + bold
+var c13=si('c13',{
+  tooltip:{trigger:'axis',formatter:function(p){var i=corrItems[p[0].dataIndex];return'<b>'+i.name+'</b><br>r = '+i.r.toFixed(3)+'  '+i.p}},
+  grid:{left:110,right:80,bottom:32,top:20},
+  xAxis:[{type:'value',min:-.3,max:.95,...AX,axisLabel:{formatter:function(v){return v.toFixed(1)},color:'#6E6A62',fontSize:11}}],
+  yAxis:[{type:'category',data:corrItems.map(function(d){return d.name}),axisLabel:{color:'#6E6A62',fontSize:12},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:[{type:'bar',data:corrItems.map(function(d){return{value:d.r,itemStyle:{color:d.r>0?B:O,borderRadius:d.r>0?[0,5,5,0]:[5,0,0,5]}}}),barMaxWidth:22,
+    label:{show:true,position:function(d){return d.value>=0?'right':'left'},
+      formatter:function(p){return corrItems[p.dataIndex].r.toFixed(3)+'  '+corrItems[p.dataIndex].p},
+      fontSize:12,fontWeight:700,color:'#1A1917'}  // FIX: dark+bold
+  }]
+});
+
+// Heatmap
+var mL=['年份','网民规模','普及率','农村普及率','农村网民','城镇普及率','城镇网民','非网民'];
+var mRaw=[[0,0,1],[0,1,.974],[0,2,.974],[0,3,.819],[0,4,.633],[0,5,.928],[0,6,.964],[0,7,-.969],[1,1,1],[1,2,.998],[1,3,.912],[1,4,.782],[1,5,.871],[1,6,.896],[1,7,-1],[2,2,1],[2,3,.913],[2,4,.789],[2,5,.865],[2,6,.890],[2,7,-.998],[3,3,1],[3,4,.898],[3,5,.605],[3,6,.69],[3,7,-.921],[4,4,1],[4,5,.447],[4,6,.425],[4,7,-.795],[5,5,1],[5,6,.944],[5,7,-.859],[6,6,1],[6,7,-.887],[7,7,1]];
+var mFull=[];mRaw.forEach(function(r){mFull.push(r);if(r[0]!==r[1])mFull.push([r[1],r[0],r[2]]);});
+var c14=si('c14',{
+  tooltip:{formatter:function(p){return mL[p.value[0]]+' × '+mL[p.value[1]]+'<br>r = '+p.value[2].toFixed(3)}},
+  grid:{left:68,right:20,bottom:76,top:16},
+  xAxis:{type:'category',data:mL,axisLabel:{rotate:40,color:'#6E6A62',fontSize:10},axisLine:{lineStyle:{color:'#DDD9CE'}}},
+  yAxis:{type:'category',data:mL,axisLabel:{color:'#6E6A62',fontSize:10},axisLine:{lineStyle:{color:'#DDD9CE'}}},
+  visualMap:{min:-1,max:1,calculable:true,orient:'horizontal',left:'center',bottom:2,inRange:{color:['#C0592A','#F5F3EE','#2B5F8C']},itemWidth:12,itemHeight:72,textStyle:{fontSize:10}},
+  series:[{type:'heatmap',data:mFull,emphasis:{itemStyle:{shadowBlur:6}}}]
+});
+
+var c15=si('c15',{
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{data:['城镇','农村'],bottom:0,textStyle:{fontSize:11}},
+  grid:{left:104,right:20,bottom:36,top:20},
+  xAxis:[{type:'value',...AX}],
+  yAxis:[{type:'category',data:['数字化融入\n较高/高占比（%）','使用网络率（%）','健康良好占比（%）','子女关系满意（%）'],axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:[
+    {name:'城镇',type:'bar',data:[
+      +(((777+788+1453+260)/7091)*100).toFixed(1),
+      +(3401/7076*100).toFixed(1),
+      32,88
+    ],itemStyle:{color:B,borderRadius:[0,4,4,0]},barMaxWidth:18,label:{show:true,position:'right',formatter:function(p){return p.value+'%'},fontSize:11,color:'#1A1917',fontWeight:600}},
+    {name:'农村',type:'bar',data:[
+      +(((1254+991+1767+189)/12270)*100).toFixed(1),
+      +(4453/12239*100).toFixed(1),
+      24,85
+    ],itemStyle:{color:O,borderRadius:[0,4,4,0]},barMaxWidth:18,label:{show:true,position:'right',formatter:function(p){return p.value+'%'},fontSize:11,color:'#1A1917',fontWeight:600}}
+  ]
+});
+
+/* ─── 07 回归分析 ─── */
+var regData={
+  digital:{title:'数字化融入程度',items:[
+    {name:'认知程度',beta:.333,r2:.111},{name:'居住地（城镇）',beta:.125,r2:.016},
+    {name:'健康状况',beta:.122,r2:.015},{name:'受教育程度',beta:.148,r2:.022},
+    {name:'收入水平',beta:.062,r2:.004},{name:'孤独感',beta:-.097,r2:.009},
+    {name:'抑郁程度',beta:-.191,r2:.037},{name:'身体障碍',beta:-.201,r2:.041}
+  ]},
+  cognition:{title:'认知功能',items:[
+    {name:'记忆力水平',beta:.238,r2:.063},{name:'数字化融入',beta:.223,r2:.111},{name:'受教育程度',beta:.087,r2:.022},{name:'使用网络',beta:.026,r2:.111}
+  ]},
+  lonely:{title:'孤独感',items:[
+    {name:'数字化融入',beta:-.062,r2:.009},{name:'使用网络',beta:-.042,r2:.009}
+  ]},
+  memory:{title:'记忆力水平',items:[
+    {name:'认知程度',beta:.253,r2:.063},{name:'数字化融入',beta:.154,r2:.024},{name:'受教育程度',beta:.081,r2:.017},{name:'使用网络（联合）',beta:-.089,r2:.019}
+  ]}
+};
+var c16=null;
+function drawReg(key){
+  var d=regData[key];
+  var sorted=d.items.slice().sort(function(a,b){return b.beta-a.beta});
+  var opt={
+    tooltip:{trigger:'axis',formatter:function(p){var i=sorted[p[0].dataIndex];return'<b>'+i.name+'</b><br>β = '+i.beta.toFixed(3)+'<br>单变量R² = '+i.r2.toFixed(3)}},
+    grid:{left:120,right:90,bottom:32,top:16},
+    xAxis:[{type:'value',min:-.35,max:.45,...AX,name:'标准化β系数',nameLocation:'middle',nameGap:28,nameTextStyle:{color:GY,fontSize:11},axisLabel:{formatter:function(v){return v.toFixed(2)},color:'#6E6A62',fontSize:11}}],
+    yAxis:[{type:'category',data:sorted.map(function(i){return i.name}),axisLabel:{color:'#6E6A62',fontSize:12},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+    series:[{type:'bar',data:sorted.map(function(i){return{value:i.beta,itemStyle:{color:i.beta>=0?B:O,borderRadius:i.beta>=0?[0,6,6,0]:[6,0,0,6]}}}),barMaxWidth:28,
+      // FIX #4 & #9: white label text on bars, bold
+      label:{show:true,position:'inside',formatter:function(p){return p.value.toFixed(3)},
+        fontSize:12,fontWeight:700,color:'#FFFFFF'}}]
+  };
+  if(!c16){c16=si('c16',opt);}else{c16.setOption(opt,true);}
+}
+drawReg('digital');
+
+var c17=si('c17',{
+  tooltip:{trigger:'axis',formatter:function(p){return'调整后R² = '+p[0].value.toFixed(3)}},
+  grid:{left:148,right:20,bottom:32,top:16},
+  xAxis:[{type:'value',max:.2,...AX,axisLabel:{formatter:function(v){return v.toFixed(2)},color:'#6E6A62',fontSize:11}}],
+  yAxis:[{type:'category',data:['数字化融入\n（居住地+教育+健康+收入）','数字化融入\n（认知+身体+心理）','认知功能\n（记忆+数字化+教育）','记忆力\n（认知+数字化+教育）'],axisLabel:{color:'#6E6A62',fontSize:11},axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{show:false}}],
+  series:[{type:'bar',data:[
+    {value:.034,itemStyle:{color:B2,borderRadius:[0,4,4,0]}},
+    {value:.085,itemStyle:{color:B,borderRadius:[0,4,4,0]}},
+    {value:.152,itemStyle:{color:G,borderRadius:[0,4,4,0]}},
+    {value:.096,itemStyle:{color:T,borderRadius:[0,4,4,0]}}
+  ],barMaxWidth:22,label:{show:true,position:'right',formatter:function(p){return p.value.toFixed(3)},fontSize:12,color:'#1A1917',fontWeight:600}}]
+});
+
+/* ─── 08 结论 ─── */
+var c18=si('c18',{
+  tooltip:{},legend:{data:['安全感','和谐感','尊严感'],bottom:0,textStyle:{fontSize:11}},
+  radar:{indicator:[{name:'维度一ω',max:1},{name:'维度二ω',max:1},{name:'维度三ω',max:1},{name:'维度四ω',max:1}],
+    axisName:{color:'#6E6A62',fontSize:12},splitLine:{lineStyle:{color:'#E8E5DF'}},splitArea:{show:false}},
+  series:[{type:'radar',data:[
+    {name:'安全感',value:[.856,.855,.902,.856],lineStyle:{color:B},itemStyle:{color:B},areaStyle:{color:'rgba(43,95,140,.12)'}},
+    {name:'和谐感',value:[.839,.881,.920,.904],lineStyle:{color:G},itemStyle:{color:G},areaStyle:{color:'rgba(46,125,94,.12)'}},
+    {name:'尊严感',value:[.910,.939,.913,.914],lineStyle:{color:O},itemStyle:{color:O},areaStyle:{color:'rgba(192,89,42,.12)'}}
+  ]}]
+});
+
+// FIX #5: policy matrix redesigned — scatter with external labels, sized by impact
+var pData=[
+  {name:'提升农村数字基础设施',label:'提升农村\n数字基础\n设施',x:8.5,y:9.5,s:60},
+  {name:'老年数字技能培训',label:'老年数字\n技能培训',x:7.5,y:7.5,s:52},
+  {name:'推广适老化设计标准',label:'推广适老化\n设计标准',x:5.5,y:9.5,s:48},
+  {name:'强化家庭数字支持体系',label:'强化家庭\n数字支持\n体系',x:9.0,y:6.5,s:48},
+  {name:'心理健康干预项目',label:'心理健康\n干预项目',x:4.5,y:7.0,s:44},
+  {name:'推动代际数字融合',label:'推动代际\n数字融合',x:6.5,y:5.5,s:38},
+  {name:'老年人身体康复支持',label:'老年人身体\n康复支持',x:3.0,y:9.0,s:42},
+  {name:'数字经济就业扶持',label:'数字经济\n就业扶持',x:2.5,y:4.5,s:28}
+];
+var pColors=[B,G,T,O,'#8B4513',B2,'#A03030',GY];
+var c19=si('c19',{
+  tooltip:{trigger:'item',formatter:function(p){return'<b>'+p.name+'</b><br>可行性: '+p.value[0]+'/10<br>影响力: '+p.value[1]+'/10'}},
+  grid:{left:56,right:56,bottom:56,top:36},
+  xAxis:{type:'value',name:'政策可行性',min:0,max:10,nameLocation:'middle',nameGap:36,...AX,nameTextStyle:{color:GY,fontSize:12}},
+  yAxis:{type:'value',name:'潜在影响力',min:0,max:10,nameLocation:'middle',nameGap:36,...AX,nameTextStyle:{color:GY,fontSize:12}},
+  graphic:[
+    {type:'rect',left:250,top:36,shape:{width:250,height:220},style:{fill:'rgba(43,95,140,.04)',stroke:'rgba(43,95,140,.15)',lineWidth:1}},
+    {type:'text',left:260,top:42,style:{text:'✦ 优先推进区域',fill:B,fontSize:11,fontWeight:700}}
+  ],
+  series:pData.map(function(d,i){return{
+    type:'scatter',name:d.name,
+    data:[[d.x,d.y]],
+    symbolSize:Math.sqrt(d.s)*9,
+    itemStyle:{color:pColors[i],opacity:.85},
+    label:{show:true,formatter:function(){return d.label;},
+      position:'inside',fontSize:10,color:'white',fontWeight:700,lineHeight:15}
+  }})
+});
+
+/* ─── TAB SWITCHES ─── */
+function switchScale(key,btn){
+  ['aqg','hxg','znq'].forEach(function(k){document.getElementById('tab-'+k).style.display=k===key?'':'none';});
+  document.querySelectorAll('#rel .tabs .tb').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  // Lazy init reliability chart
+  if(!relInited[key]){
+    relInited[key]=true;
+    var cfg={
+      aqg:{id:'cr1',dims:['维度一','维度二','维度三'],a:[.737,.658,.780],o:[.856,.855,.902]},
+      hxg:{id:'cr2',dims:['维度一','维度二','维度三','维度四'],a:[.610,.722,.878,.781],o:[.839,.881,.920,.904]},
+      znq:{id:'cr3',dims:['维度一','维度二','维度三','维度四'],a:[.800,.912,.855,.810],o:[.910,.939,.913,.914]}
+    }[key];
+    makeRelChart(cfg.id,cfg.dims,cfg.a,cfg.o);
+  } else {
+    var ids={aqg:'cr1',hxg:'cr2',znq:'cr3'};
+    var inst=echarts.getInstanceByDom(document.getElementById(ids[key]));
+    if(inst)setTimeout(function(){inst.resize();},30);
+  }
+}
+// init first tab
+relInited.aqg=true;makeRelChart('cr1',['维度一','维度二','维度三'],[.737,.658,.780],[.856,.855,.902]);
+
+function switchQ(key,btn){
+  ['aqg','hxg','znq'].forEach(function(k){document.getElementById('qtab-'+k).style.display=k===key?'':'none';});
+  document.querySelectorAll('#quest .tabs .tb').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  // init questionnaire reliability chart
+  if(!relInited['q'+key]){
+    relInited['q'+key]=true;
+    var cfg={
+      aqg:{id:'qc1',dims:['维度一（技术安全）','维度二（社会支持）','维度三（智能设备）'],a:[.737,.658,.780],o:[.856,.855,.902]},
+      hxg:{id:'qc2',dims:['维度一（社交主动）','维度二（情感联结）','维度三（社会参与）','维度四（社会融入）'],a:[.610,.722,.878,.781],o:[.839,.881,.920,.904]},
+      znq:{id:'qc3',dims:['维度一（数字独立）','维度二（数字尊重）','维度三（数字话语权）','维度四（总体尊严）'],a:[.800,.912,.855,.810],o:[.910,.939,.913,.914]}
+    }[key];
+    makeRelChart(cfg.id,cfg.dims,cfg.a,cfg.o);
+  }
+}
+// init questionnaire first tab chart
+relInited.qaqg=true;makeRelChart('qc1',['维度一（技术安全）','维度二（社会支持）','维度三（智能设备）'],[.737,.658,.780],[.856,.855,.902]);
+
+function switchReg(key,btn){
+  document.querySelectorAll('#reg .tabs .tb').forEach(function(b){b.classList.remove('active')});
+  if(btn)btn.classList.add('active');
+  drawReg(key);
+}
+
+window.switchScale=switchScale;
+window.switchQ=switchQ;
+window.switchReg=switchReg;
+
+/* ─── RESIZE ─── */
+var allC=[c1,c2,c3,c4,c4b,c5,c5b,c6,c7,c8,c9,c10,cx1,cx2,cx3,cx4,c12,c13,c14,c15,c16,c17,c18,c19];
+window.addEventListener('resize',function(){
+  allC.forEach(function(c){if(c)c.resize();});
+  Object.keys(relInited).forEach(function(k){
+    var ids={aqg:'cr1',hxg:'cr2',znq:'cr3',qaqg:'qc1',qhxg:'qc2',qznq:'qc3'};
+    if(ids[k]){var el=document.getElementById(ids[k]);if(el){var inst=echarts.getInstanceByDom(el);if(inst)inst.resize();}}
+  });
+});
+
+/* ─── NAV HIGHLIGHT ─── */
+var secs=document.querySelectorAll('section[id]');
+var navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',function(){
+  var cur='';
+  secs.forEach(function(s){if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  navAs.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+});
+
+} // end initAll
+</script>
+</body>
+</html>
