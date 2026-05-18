@@ -13,7 +13,7 @@ status:
 role: Student
 bio: |
   Chiron is a researcher in Model Theory, with a focus on its interactions with Number Theory.
-  Chiron has a background in philosophy, which informs his interest in the foundational aspects of mathematics.
+  Chiron has a background in Philosophy, which informs his interest in the foundational aspects of mathematics.
 affiliations:
   - name: East China Normal University
     url: https://www.ecnu.edu.cn/
@@ -33,10 +33,9 @@ links:
 
 interests:
   - Intersection of Model Theory and Number Theory
-  - Abstract Elementary Classes and Compact Abstract Theories 
-  - Gödel's Works and Classical Metamathematics
-  - History of Western Philosophy (from Thales to Heidegger)
-  - Dynamic Neuro-Symbolic Artificial Intelligence
+  - Abstract Elementary Classes, Compact Abstract Theories and Set Theory.
+  - History Philosophy round Hölderlin and Heidegger
+  - Logic-Algorithm AI Kernel
 
 education:
   - degree: BS Philosophy
