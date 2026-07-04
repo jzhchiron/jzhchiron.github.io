@@ -22,21 +22,10 @@ sections:
         about: ''
         education: ''
         interests: ''
-design:
-  background:
-    color: "#f8f9fa"           # 可选：背景颜色
-    image: "images/hero-bg.jpg"   # 你的背景图路径
-    image_size: "cover"
-    image_position: "center center"
-    image_parallax: false
-    gradient_mesh:
-      enable: true
-      size: md
-      # shape: circle   # 可选
 
-  # Name heading sizing（这个要放在 design 的同一层级，不能放在 background 里面）
-  name:
-    size: md   # 或 lg / xl，根据名字长度调整
+design:
+    gradient_mesh:
+          enable: true
 
       # Name heading sizing to accommodate long or short names
       name:
