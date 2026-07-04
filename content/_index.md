@@ -24,7 +24,7 @@ sections:
         interests: ''
 
 design:
-      gradient_mesh:
+  - gradient_mesh:
         enable: true
 
       # Name heading sizing to accommodate long or short names
