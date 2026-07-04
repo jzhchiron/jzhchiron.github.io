@@ -23,7 +23,7 @@ sections:
         education: ''
         interests: ''
 
-    design:
+design:
       gradient_mesh:
         enable: true
 
