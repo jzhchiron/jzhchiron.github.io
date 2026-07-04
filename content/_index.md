@@ -22,14 +22,21 @@ sections:
         about: ''
         education: ''
         interests: ''
-    design:
-      # Use the new Gradient Mesh which automatically adapts to the selected theme colors
-      background:
-      # 背景图片设置
-    image: "hero-background.jpg"     # ← 这里放你的图片文件名
-    image_size: "cover"              # cover（推荐）或 contain
-    image_position: "center center"  # 图片位置
-    image_parallax: false            # 是否视差滚动效果
+   design:
+  background:
+    color: "#f8f9fa"           # 可选：背景颜色
+    image: "images/hero-bg.jpg"   # 你的背景图路径
+    image_size: "cover"
+    image_position: "center center"
+    image_parallax: false
+    gradient_mesh:
+      enable: true
+      size: md
+      # shape: circle   # 可选
+
+  # Name heading sizing（这个要放在 design 的同一层级，不能放在 background 里面）
+  name:
+    size: md   # 或 lg / xl，根据名字长度调整
 
       # Name heading sizing to accommodate long or short names
       name:
