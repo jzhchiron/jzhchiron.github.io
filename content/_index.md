@@ -41,7 +41,7 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        I have published a series of papers in the field of philosophy, some of which have sparked discussions on regional or specialized forums. The topics of these discussed papers include concreteness, nennen, and post-Heideggerean philosophy.
+        I have published a series of papers in the field of philosophy, some of which have sparked discussions on regional or specialized forums. The topics of these discussed papers include Concreteness, Methodology of Science and Technology, and Modern History of Philosophy.
 
         Currently, I am conducting research at the intersection of number theory and model theory under the supervision of Professor William Andrew Johnson at the School of Mathematical Sciences and the School of Philosophy, Fudan University, as well as research on dynamic neuro-symbolic artificial intelligence under the guidance of Professor Zhang Min at the Software Engineering Institute, East China Normal University.
 
