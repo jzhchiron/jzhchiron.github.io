@@ -25,8 +25,15 @@ sections:
     design:
       # Use the new Gradient Mesh which automatically adapts to the selected theme colors
       background:
+      # 背景图片设置
+    image: "hero-background.jpg"     # ← 这里放你的图片文件名
+    image_size: "cover"              # cover（推荐）或 contain
+    image_position: "center center"  # 图片位置
+    image_parallax: false            # 是否视差滚动效果
+    # 文字颜色（确保可读性）
+    text_color_light: true
         gradient_mesh:
-          enable: true
+          enable: false
 
       # Name heading sizing to accommodate long or short names
       name:
