@@ -22,7 +22,7 @@ sections:
         about: ''
         education: ''
         interests: ''
-   design:
+design:
   background:
     color: "#f8f9fa"           # 可选：背景颜色
     image: "images/hero-bg.jpg"   # 你的背景图路径
