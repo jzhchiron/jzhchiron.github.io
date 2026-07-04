@@ -30,8 +30,6 @@ sections:
     image_size: "cover"              # cover（推荐）或 contain
     image_position: "center center"  # 图片位置
     image_parallax: false            # 是否视差滚动效果
-        gradient_mesh:
-          enable: false
 
       # Name heading sizing to accommodate long or short names
       name:
