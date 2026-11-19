@@ -55,8 +55,12 @@ markup:
       passthrough:
         enable: true
         delimiters:
-          inline: ['$', '$']
-          block: ['$$', '$$']
+          block:
+            - ['\[', '\]']
+            - ['$$', '$$']
+          inline:
+            - ['\(', '\)']
+            - ['$', '$']
   highlight:
     lineNos: false
 
