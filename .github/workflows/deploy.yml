@@ -23,7 +23,6 @@ concurrency:
 jobs:
   # Build website
   build:
-    if: github.repository_owner != 'HugoBlox'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -41,12 +40,6 @@ jobs:
       if: hashFiles('package.json') != ''
       uses: pnpm/action-setup@v4
 
-    - name: Get Hugo Version
-      id: hugo-version
-      run: |
-        VERSION=$(grep "hugo_version" hugoblox.yaml | awk '{print $2}' | tr -d "'\"")
-        echo "HUGO_VERSION=$VERSION" >> $GITHUB_ENV
-
     - name: Install dependencies
       run: |
         # Install Tailwind CLI if package.json exists
@@ -58,7 +51,7 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3
       with:
-        hugo-version: ${{ env.HUGO_VERSION }}
+        hugo-version: '0.152.2'
         extended: true
 
       # Cache dependencies (Go modules, node_modules) - stable, rarely changes
@@ -67,8 +60,7 @@ jobs:
         path: |
           /tmp/hugo_cache_runner/
           node_modules/
-          modules/*/node_modules/
-        key: ${{ runner.os }}-hugo-deps-${{ hashFiles('**/go.mod', '**/package-lock.json',
+        key: ${{ runner.os }}-hugo-deps-${{ hashFiles('**/package-lock.json',
           '**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-hugo-deps-
@@ -93,13 +85,6 @@ jobs:
         echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
         hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
-    - name: Generate Pagefind search index (if applicable)
-      run: |
-        # Check if site uses Pagefind search
-        if [ -f "package.json" ] && grep -q "pagefind" package.json; then
-          pnpm dlx pagefind --source "public" || npx pagefind --source "public"
-        fi
-
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v4
       with:
@@ -107,7 +92,6 @@ jobs:
 
   # Deploy website to GitHub Pages hosting
   deploy:
-    if: github.repository_owner != 'HugoBlox'
     needs: build
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:

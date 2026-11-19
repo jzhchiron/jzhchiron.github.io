@@ -1,0 +1,18 @@
+nav_home:
+  other: "Home"
+nav_projects:
+  other: "Projects"
+nav_publications:
+  other: "Papers"
+nav_news:
+  other: "News"
+nav_experience:
+  other: "Experience"
+footer_copyright:
+  other: "All rights reserved."
+language_switch:
+  other: "Language"
+reading_time:
+  other: "min read"
+current_language:
+  other: "Current language"

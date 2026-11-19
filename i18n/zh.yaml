@@ -1,0 +1,18 @@
+nav_home:
+  other: "首页"
+nav_projects:
+  other: "项目"
+nav_publications:
+  other: "论文"
+nav_news:
+  other: "动态"
+nav_experience:
+  other: "经历"
+footer_copyright:
+  other: "版权所有。"
+language_switch:
+  other: "语言"
+reading_time:
+  other: "分钟阅读"
+current_language:
+  other: "当前语言"

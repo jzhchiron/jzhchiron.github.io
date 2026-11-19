@@ -1,0 +1,5 @@
+{{ define "main" }}
+  <h1 class="text-3xl font-semibold tracking-tight">{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</h1>
+  {{ with .Content }}<div class="prose mt-6 max-w-none">{{ . }}</div>{{ end }}
+  <p class="mt-6 text-sm text-slate-500">{{ i18n "current_language" }}: {{ .Site.Language.LanguageName }}</p>
+{{ end }}

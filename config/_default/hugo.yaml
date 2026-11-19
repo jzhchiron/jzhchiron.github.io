@@ -1,20 +1,16 @@
-# Configuration of Hugo
-# Guide: https://docs.hugoblox.com/tutorial/
-# Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
-# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
+# Native Hugo configuration
+# Documentation: https://gohugo.io/configuration/
 
-# Website name (set in params.yaml under hugoblox.branding.name)
-title: 'Chiron'
-# Website URL
 baseURL: 'https://jzhchiron.github.io/'
+title: 'Chiron'
 
 ############################
 ## LANGUAGE
 ############################
 
 defaultContentLanguage: en
-hasCJKLanguage: false
 defaultContentLanguageInSubdir: false
+hasCJKLanguage: true
 removePathAccents: true
 
 ############################
@@ -32,25 +28,39 @@ enableRobotsTXT: true
 footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_cache$"]
 disableAliases: true
+
 outputs:
-  home: [HTML, RSS, headers, redirects, backlinks]
+  home: [HTML, RSS]
   section: [HTML, RSS]
+
 imaging:
   resampleFilter: lanczos
   quality: 90
   anchor: smart
   hint: picture
+
 timeout: 600000
+
 taxonomies:
   author: authors
   tag: tags
   publication_type: publication_types
+
 markup:
   _merge: deep
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          inline: ['$', '$']
+          block: ['$$', '$$']
   highlight:
     lineNos: false
+
 security:
   _merge: deep
 sitemap:
   _merge: deep
-

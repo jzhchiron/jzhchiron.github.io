@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1>
+  {{ with .Content }}<div class="prose mt-6 max-w-none">{{ . }}</div>{{ end }}
+  {{ if .Pages }}
+    <ul class="mt-8 space-y-3">
+      {{ range .Pages }}
+        <li><a class="underline decoration-slate-300 underline-offset-4 hover:decoration-slate-900" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+  {{ end }}
+{{ end }}

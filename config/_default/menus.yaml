@@ -1,10 +1,7 @@
 # Navigation Links
-#   To link a homepage widget, specify the URL as a hash `#` followed by the filename of the
-  #     desired widget in your `content/home/` folder.
-  #   The weight parameter defines the order that the links will appear in.
+#   URLs are absolute site paths. Menus are shared by all languages in this phase.
+#   The weight parameter defines the order that the links will appear in.
 
-# De-CV: a compact work index, not a job-application dossier.
-# Every item points to a real path or a real homepage anchor.
 main:
   - name: Agenda
     url: /
@@ -16,7 +13,7 @@ main:
     url: /publications/
     weight: 12
   - name: News
-    url: /#news
+    url: /blog/
     weight: 13
   - name: Experience
     url: /experience/
