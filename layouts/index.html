@@ -1,5 +1,26 @@
 {{ define "main" }}
-  <h1 class="text-3xl font-semibold tracking-tight">{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</h1>
-  {{ with .Content }}<div class="prose mt-6 max-w-none">{{ . }}</div>{{ end }}
-  <p class="mt-6 text-sm text-slate-500">{{ i18n "current_language" }}: {{ .Site.Language.LanguageName }}</p>
+  <h1 class="text-2xl font-semibold tracking-tight text-ink">{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</h1>
+
+  <p class="mt-3 text-sm text-muted">{{ i18n "current_language" }}: {{ .Site.Language.LanguageName }}</p>
+
+  {{ with .Content }}<div class="prose content-prose mt-6">{{ . }}</div>{{ end }}
+
+  <section class="mt-10 rounded-md border border-hairline bg-subtle p-5">
+    <h2 class="text-base font-semibold text-ink">Visual check / 视觉自检</h2>
+
+    <p class="mt-3 text-ink">
+      冷调学术现代主义以 Inter 衔接中英文排版，中文标点保持严格断行；正文 15px、行高 1.65，全站只保留一处强调色。
+    </p>
+
+    <div class="prose content-prose mt-6">
+      <blockquote>
+        <p>理论一经掌握群众，也会变成物质力量。</p>
+      </blockquote>
+      <p>这是一段用于验证 <a href="#">主色链接样式</a> 的正文，去色后仍应通过下划线保持可辨识。</p>
+    </div>
+
+    <button type="button" onclick="window.toggleTheme()" class="mt-6 rounded-sm border border-hairline px-3 py-1.5 text-sm text-accent hover:border-accent hover:text-accent-hover">
+      切换明暗 / Toggle theme
+    </button>
+  </section>
 {{ end }}

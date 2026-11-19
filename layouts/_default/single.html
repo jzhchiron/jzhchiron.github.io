@@ -1,11 +1,11 @@
 {{ define "main" }}
   <article>
     <h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1>
-    <p class="mt-2 text-sm text-slate-500">
+    <p class="mt-2 text-sm text-muted">
       {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>{{ end }}
       {{ if and .Content (not .Date.IsZero) }} · {{ end }}
       {{ if .Content }}{{ .ReadingTime }} {{ i18n "reading_time" }}{{ end }}
     </p>
-    <div class="prose mt-8 max-w-none">{{ .Content }}</div>
+    <div class="prose content-prose mt-8">{{ .Content }}</div>
   </article>
 {{ end }}

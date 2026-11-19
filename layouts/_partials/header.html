@@ -1,16 +1,16 @@
 {{ $siteName := .Site.Params.siteName | default .Site.Title }}
-<header class="border-b border-slate-200">
+<header class="border-b border-hairline">
   <div class="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-    <a class="font-semibold tracking-tight" href="{{ .Site.Home.RelPermalink }}">{{ $siteName }}</a>
+    <a class="font-semibold tracking-tight text-ink" href="{{ .Site.Home.RelPermalink }}">{{ $siteName }}</a>
     <nav class="flex flex-wrap gap-4 text-sm">
       {{ range .Site.Menus.main }}
-        <a class="text-slate-600 hover:text-slate-900" href="{{ .URL }}">{{ .Name }}</a>
+        <a class="text-muted hover:text-ink" href="{{ .URL }}">{{ .Name }}</a>
       {{ end }}
     </nav>
     <div class="flex gap-3 text-sm" aria-label="{{ i18n "language_switch" }}">
       {{ range .Site.Home.AllTranslations }}
         {{ if ne .Language.Lang $.Site.Language.Lang }}
-          <a class="text-slate-500 hover:text-slate-900" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}">{{ .Language.LanguageName }}</a>
+          <a class="text-muted hover:text-accent" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}">{{ .Language.LanguageName }}</a>
         {{ end }}
       {{ end }}
     </div>

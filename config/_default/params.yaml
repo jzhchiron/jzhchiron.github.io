@@ -7,3 +7,6 @@ description: "Chiron's Academic Homepage. Focusing on Number Theory, Model Theor
 
 theme:
   mode: "system"
+
+math:
+  enable: false
