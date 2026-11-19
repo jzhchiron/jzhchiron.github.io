@@ -6,7 +6,7 @@
 <title>伦理生活视域下老年人数字化生存研究 · 数据可视化报告</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F4F1EB;--paper:#FDFBF7;--sur:#FFFFFF;--bdr:#DDD9CE;--blue:#2B5F8C;--b2:#5B8FC0;--org:#C0592A;--grn:#2E7D5E;--tel:#2A7D8E;--gry:#A09C93;--txt:#1A1917;--mut:#6E6A62;--r:10px;--sh:0 2px 18px rgba(0,0,0,.07)}
+:root{--bg:#F4F1EB;--paper:#FDFBF7;--sur:#FFFFFF;--bdr:#DDD9CE;--blue:#1E4D6B;--b2:#5A8FAD;--org:#C0592A;--grn:#2E7D5E;--tel:#2A7D8E;--gry:#A09C93;--txt:#1A1917;--mut:#6E6A62;--r:10px;--sh:0 2px 18px rgba(0,0,0,.07)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:'Noto Sans SC',sans-serif;font-size:15px;line-height:1.75}
@@ -16,10 +16,10 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(253,251,247,.96);backdrop
 .brand{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:var(--blue);white-space:nowrap;margin-right:24px;flex-shrink:0}
 .nav-links{display:flex;gap:2px}
 .nav-links a{text-decoration:none;color:var(--mut);font-size:12px;padding:5px 11px;border-radius:20px;transition:all .2s;white-space:nowrap}
-.nav-links a:hover,.nav-links a.active{color:var(--blue);background:#EBF2F9}
+.nav-links a:hover,.nav-links a.active{color:var(--blue);background:#E8EFF4}
 
 /* HERO */
-.hero{background:linear-gradient(135deg,#1A3A54 0%,#2B5F8C 55%,#1E6B52 100%);color:white;padding:72px 40px 64px}
+.hero{background:linear-gradient(135deg,#1A3A54 0%,#1E4D6B 55%,#1E6B52 100%);color:white;padding:72px 40px 64px}
 .hero-inner{max-width:960px;margin:0 auto}
 .hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:.08em;margin-bottom:22px;font-family:'IBM Plex Mono',monospace}
 .hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(22px,4vw,38px);font-weight:700;line-height:1.35;margin-bottom:16px}
@@ -34,7 +34,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(253,251,247,.96);backdrop
 section{padding:56px 0}
 section:nth-child(even){background:var(--paper)}
 .sh{margin-bottom:32px}
-.stag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--blue);background:#EBF2F9;border-radius:4px;padding:3px 9px;margin-bottom:10px;text-transform:uppercase}
+.stag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--blue);background:#E8EFF4;border-radius:4px;padding:3px 9px;margin-bottom:10px;text-transform:uppercase}
 .sh h2{font-family:'Noto Serif SC',serif;font-size:23px;font-weight:700;line-height:1.35}
 .sh p{color:var(--mut);margin-top:8px;max-width:580px;font-size:14px}
 
@@ -67,7 +67,7 @@ section:nth-child(even){background:var(--paper)}
 .tb.active,.tb:hover{background:var(--blue);color:white;border-color:var(--blue)}
 
 /* FINDING BOXES */
-.fin{border-left:3px solid var(--blue);padding:11px 14px;background:#EBF2F9;border-radius:0 8px 8px 0;margin-bottom:9px}
+.fin{border-left:3px solid var(--blue);padding:11px 14px;background:#E8EFF4;border-radius:0 8px 8px 0;margin-bottom:9px}
 .fin.or{border-color:var(--org);background:#FDF0EB}
 .fin.gr{border-color:var(--grn);background:#EBF5F1}
 .fin strong{color:var(--blue);font-size:12px;display:block;margin-bottom:2px}
@@ -746,7 +746,7 @@ window.openModal=openModal;window.closeModal=closeModal;
 
 /* ───── CHART INIT ───── */
 function initAll(){
-var B='#2B5F8C',B2='#5B8FC0',O='#C0592A',G='#2E7D5E',T='#2A7D8E',GY='#A09C93';
+var B='#1E4D6B',B2='#5A8FAD',O='#C0592A',G='#2E7D5E',T='#2A7D8E',GY='#A09C93';
 var AX={axisLine:{lineStyle:{color:'#DDD9CE'}},splitLine:{lineStyle:{color:'#F0EDE6'}},axisLabel:{color:'#6E6A62',fontSize:11}};
 var TS=['2021.12','2022.6','2022.12','2023.6','2023.12','2024.6','2024.12'];
 
@@ -1028,7 +1028,7 @@ var c14=si('c14',{
   grid:{left:68,right:20,bottom:76,top:16},
   xAxis:{type:'category',data:mL,axisLabel:{rotate:40,color:'#6E6A62',fontSize:10},axisLine:{lineStyle:{color:'#DDD9CE'}}},
   yAxis:{type:'category',data:mL,axisLabel:{color:'#6E6A62',fontSize:10},axisLine:{lineStyle:{color:'#DDD9CE'}}},
-  visualMap:{min:-1,max:1,calculable:true,orient:'horizontal',left:'center',bottom:2,inRange:{color:['#C0592A','#F5F3EE','#2B5F8C']},itemWidth:12,itemHeight:72,textStyle:{fontSize:10}},
+  visualMap:{min:-1,max:1,calculable:true,orient:'horizontal',left:'center',bottom:2,inRange:{color:['#C0592A','#F5F3EE','#1E4D6B']},itemWidth:12,itemHeight:72,textStyle:{fontSize:10}},
   series:[{type:'heatmap',data:mFull,emphasis:{itemStyle:{shadowBlur:6}}}]
 });
 

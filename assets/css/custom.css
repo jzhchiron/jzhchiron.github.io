@@ -4,6 +4,6 @@ html {
 
 .content {
   max-width: 680px;
-  font-size: 0.95rem;      /* ≈ 14.25px */
-  line-height: 1.5;
+  font-size: 1rem;         /* 15px：降低普通读者的长文阅读门槛 */
+  line-height: 1.65;       /* 主题无对应 token：窄栏 + 小字需要更舒展的行距 */
 }

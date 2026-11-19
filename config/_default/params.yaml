@@ -37,13 +37,16 @@ hugoblox:
     # Theme pack: name from data/themes/ or { light: "x", dark: "y" } for mix-and-match
     pack: "default"
     # Optional: Override theme pack colors
+    # Primary is pinned to deep-sea teal-blue (#1E4D6B): calm, restrained, cool engineering tone.
+    # Keep it in sync with static/viz2.html. See STYLE.md §3.2.
     colors:
-      primary: ""                       # Tailwind palette name or hex (e.g., "indigo" or "#6366f1")
+      primary: "#1E4D6B"                # Tailwind palette name or hex (e.g., "indigo" or "#6366f1")
       secondary: ""
       neutral: ""                       # Affects gray utilities (text-gray-*, bg-gray-*)
     # Optional: Mode-specific color overrides
     colors_light: {}
-    colors_dark: {}
+    colors_dark:
+      primary: "#5A8FAD"                # Lighter tint of the same hue, for legibility on dark surfaces
     # Optional: Semantic surface color overrides
     surfaces:
       background: ""
@@ -61,7 +64,7 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   typography:
     # Font: 'sans' (Inter), 'serif' (Roboto Slab), or 'native' (system fonts)
-    font: "serif"
+    font: "sans"
     # Size: 'sm', 'md', 'lg', or 'xl' (affects base font size and scale)
     size: "md"
 
@@ -71,7 +74,7 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   layout:
     # Border radius: 'none', 'sm', 'md', 'lg', or 'full'
-    radius: "md"
+    radius: "sm"
     # Spacing density: 'compact', 'comfortable', or 'spacious'
     spacing: "comfortable"
     # Avatar shape in author profiles
