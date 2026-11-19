@@ -14,39 +14,60 @@ sections:
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: me
       text: ''
-      # Show a call-to-action button under your biography? (optional)
+      # Restrained entry to the work archive; no CV download / job-seeking CTA
       button:
-        text: Download CV
-        url: uploads/resume.pdf
+        text: Work Overview
+        url: /projects/
       headings:
         about: ''
         education: ''
         interests: ''
     design:
-      # Use the new Gradient Mesh which automatically adapts to the selected theme colors
+      # De-CV: plain first screen, no decorative gradient mesh
       background:
         gradient_mesh:
-          enable: true
+          enable: false
 
-      # Name heading sizing to accommodate long or short names
+      # Smaller portrait: the work, not the person, leads
       name:
         size: md # Options: xs, sm, md, lg (default), xl
-
-      # Avatar customization
       avatar:
-        size: medium # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
+        size: small # Options: small (150px), medium (200px), large (320px), xl (400px), xxl (500px)
         shape: circle # Options: circle (default), square, rounded
   - block: markdown
     content:
-      title: '📚 My Research'
-      subtitle: ''
+      title: 'Working Agenda'
+      subtitle: 'Foundations, public inclusion, and counter-leverage'
       text: |-
-        I have published a series of papers in the field of philosophy, some of which have sparked discussions on regional or specialized forums. The topics of these discussed papers include Concreteness, Methodology of Science and Technology, and Modern History of Philosophy.
+        > 一切技术探索与工程实践，皆是对最高指导思想的创造性贯彻落实。
+        >
+        > All technical exploration and engineering practice is a creative implementation of the highest guiding thought.
 
-        Currently, I am conducting research at the intersection of number theory and model theory under the supervision of Professor William Andrew Johnson at the School of Mathematical Sciences and the School of Philosophy, Fudan University, as well as research on dynamic neuro-symbolic artificial intelligence under the guidance of Professor Zhang Min at the Software Engineering Institute, East China Normal University.
+        The work is organized along three parallel tracks:
 
+        1. **Foundational Infrastructure（科技底层）** — Build self-controlled foundational technologies and the computing / data infrastructure that other work depends on.
+        2. **Public Inclusion（技术济弱）** — Ship low-threshold, general-purpose tools that extend real capability to ordinary and underserved groups.
+        3. **Technical & Institutional Counter-Leverage（规则与技术反制）** — Use transparent engineering and empirical analysis to break monopoly and unfair barriers.
     design:
       columns: '1'
+  - block: collection
+    id: projects
+    content:
+      title: Selected Work
+      text: >-
+        Projects and field reports. The standalone empirical report —
+        [Older Adults' Digital Survival](/viz2.html) — is a self-contained
+        HTML document, visually isolated from this site.
+      filters:
+        folders:
+          - projects
+    design:
+      view: article-grid
+      columns: 2
+      fill_image: false
+      show_date: false
+      show_read_time: false
+      show_read_more: false
   - block: collection
     id: papers
     content:
@@ -68,15 +89,6 @@ sections:
         exclude_featured: false
     design:
       view: citation
-  - block: collection
-    id: talks
-    content:
-      title: Recent & Upcoming Talks
-      filters:
-        folders:
-          - events
-    design:
-      view: card
   - block: collection
     id: news
     content:

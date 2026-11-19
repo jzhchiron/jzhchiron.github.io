@@ -3,25 +3,21 @@
   #     desired widget in your `content/home/` folder.
   #   The weight parameter defines the order that the links will appear in.
 
+# De-CV: a compact work index, not a job-application dossier.
+# Every item points to a real path or a real homepage anchor.
 main:
-  - name: Bio
+  - name: Agenda
     url: /
     weight: 10
-  - name: News
-    url: /#news
+  - name: Projects
+    url: /projects/
     weight: 11
   - name: Papers
     url: /publications/
     weight: 12
-  - name: Talks
-    url: /events/
+  - name: News
+    url: /#news
     weight: 13
   - name: Experience
     url: /experience/
     weight: 20
-  - name: Projects
-    url: /projects/
-    weight: 30
-  - name: Courses
-    url: /courses/
-    weight: 40

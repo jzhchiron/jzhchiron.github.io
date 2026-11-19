@@ -12,7 +12,10 @@ sections:
   - block: collection
     content:
       title: Selected Projects
-      text: Here are a selection of projects that I have worked on over the years.
+      text: >-
+        Selected projects and field reports. The standalone empirical report —
+        [Older Adults' Digital Survival](/viz2.html) — is a self-contained HTML
+        document, visually isolated from this site.
       filters:
         folders:
           - projects

@@ -7,3 +7,9 @@ html {
   font-size: 1rem;         /* 15px：降低普通读者的长文阅读门槛 */
   line-height: 1.65;       /* 主题无对应 token：窄栏 + 小字需要更舒展的行距 */
 }
+
+/* 主题无 token：核心议程引文需要主色细边来承载庄重声明，并去掉斜体装饰 */
+.content blockquote {
+  border-left: 3px solid var(--color-primary-600, var(--color-primary-500, currentColor));
+  font-style: normal;
+}

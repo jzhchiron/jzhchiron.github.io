@@ -20,11 +20,8 @@ sections:
       is_education_first: false
   - block: resume-skills
     content:
-      title: Skills & Hobbies
-      username: me
-  - block: resume-awards
-    content:
-      title: Awards
+      # De-CV: an objective stack inventory, not a "Skills & Hobbies" showcase
+      title: Technical Stack / Focus Areas
       username: me
   - block: resume-languages
     content:

@@ -1,7 +1,12 @@
 # 站点视觉风格规范（AI 可执行版）
 
-> 本文件是本站**视觉风格的唯一权威描述**。任何 AI 或人在修改样式前，先读第 2 节确认「改哪一层」，
-> 再用第 6 节的「修改配方」定位到具体文件与键名。不要凭截图猜样式，不要新增 CSS 框架，不要硬编码颜色。
+> 本文件是本站**视觉风格的唯一权威描述**。任何 AI 或人在修改样式前，先读第 5 节建立「这网站该长什么样」的基准，
+> 再读第 2 节确认「改哪一层」，最后用第 6 节的「修改配方」定位到具体文件与键名。
+> 不要凭截图猜样式，不要新增 CSS 框架，不要硬编码颜色。
+
+> **风格识别卡**：冷调、低饱和、单一深海青蓝强调色的**学术现代主义**。
+> 观感关键词：安静、克制、可信、条理清晰、纸卡感、工程气。
+> 一句话：像一份排版精良、会呼吸的论文预印本，而不是温暖书斋、SaaS 落地页或炫技作品集。
 
 - 站点：`Chiron`（Zhehao Jin），学术个人主页 / CV
 - 模板：Hugo Blox `academic-cv`，Tailwind CSS v4
@@ -76,7 +81,7 @@
 | `...surfaces.footer.background` / `foreground` | `""` | 页脚底色 / 文字色 |
 
 要点：
-- 站点所有彩色元素（链接、按钮、标签、渐变网格、技能条）都走 `primary-*` 语义色，
+- 站点所有彩色元素（链接、按钮、标签、引文边线、技能条）都走 `primary-*` 语义色，
   因此 **改 `primary` 一处 = 全站换主色**。
 - 主色为深海青蓝 `#1E4D6B`，已与两份 `viz2.html` 的 `--blue` 对齐；改主色时必须同步改这两份文件，
   暗色档 `#5A8FAD` 与其 `--blue2` / `--b2` 对齐。
@@ -122,9 +127,10 @@
 | `header.cta.enable` | `false` | 导航右侧 CTA 按钮（关闭） |
 
 导航项（顺序 = `weight`）见 [menus.yaml](config/_default/menus.yaml)：
-`Bio(/)` → `News(/#news)` → `Papers(/publications/)` → `Talks(/events/)` → `Experience(/experience/)` → `Projects(/projects/)` → `Courses(/courses/)`
+`Agenda(/)` → `Projects(/projects/)` → `Papers(/publications/)` → `News(/#news)` → `Experience(/experience/)`
 
-> `Papers` 与 `Talks` 已分别指向真实存在的 `content/publications/`、`content/events/`；不要使用无目录、无别名的 `/papers` 与 `/talks`。
+> 去简历化后只保留 5 项“工作目录”式入口；`Talks(/events/)`、`Courses(/courses/)` 页面仍然存在，但不再占用导航。
+> `Papers` 指向真实存在的 `content/publications/`；不要使用无目录、无别名的 `/papers`。
 
 ### 3.6 页脚与版权
 
@@ -151,7 +157,7 @@
 
 ### 3.8 唯一全局 CSS 覆盖文件
 
-[assets/css/custom.css](assets/css/custom.css) 当前全文（**完整就是这 3 段**）：
+[assets/css/custom.css](assets/css/custom.css) 当前全文（**完整就是这 4 段**）：
 
 ```css
 html { font-size: 15px; }
@@ -160,6 +166,12 @@ html { font-size: 15px; }
   max-width: 680px;
   font-size: 1rem;         /* 15px：降低普通读者的长文阅读门槛 */
   line-height: 1.65;       /* 主题无对应 token：窄栏 + 小字需要更舒展的行距 */
+}
+
+/* 主题无 token：核心议程引文需要主色细边来承载庄重声明，并去掉斜体装饰 */
+.content blockquote {
+  border-left: 3px solid var(--color-primary-600, var(--color-primary-500, currentColor));
+  font-style: normal;
 }
 ```
 
@@ -178,14 +190,15 @@ html { font-size: 15px; }
 
 | # | block | 关键 design | 视觉结果 |
 |---|---|---|---|
-| 1 | `resume-biography-3` | `background.gradient_mesh.enable: true`；`name.size: md`；`avatar.size: medium`（200px）；`avatar.shape: circle` | 首屏：渐变网格背景 + 圆形头像 + 姓名/职位/简介 + `Download CV` 按钮 |
-| 2 | `markdown` | `columns: '1'` | 「📚 My Research」单栏正文 |
-| 3 | `collection`（id `papers`） | `view: article-grid`、`columns: 2`、`filters.featured_only: true` | 精选论文双列卡片 |
-| 4 | `collection`（Recent Publications） | `view: citation` | 文献列表式（APA 引用行） |
-| 5 | `collection`（id `talks`） | `view: card`、`filters.folders: [events]` | 报告/活动卡片 |
+| 1 | `resume-biography-3` | `background.gradient_mesh.enable: false`；`name.size: md`；`avatar.size: small`（150px）；`avatar.shape: circle` | 首屏：纯底色 + 小圆头像 + 姓名/职位/简介 + `Work Overview` 入口 |
+| 2 | `markdown` | `columns: '1'` | 「Working Agenda」：指导思想引文（blockquote）+ 三条工作主线 |
+| 3 | `collection`（id `projects`） | `view: article-grid`、`columns: 2`、`fill_image: false`、关闭日期/阅读时长/阅读更多 | 实干成果双列文字卡；区块文案内含独立报告 `/viz2.html` 入口 |
+| 4 | `collection`（id `papers`） | `view: article-grid`、`columns: 2`、`filters.featured_only: true` | 精选论文双列卡片 |
+| 5 | `collection`（Recent Publications） | `view: citation` | 文献列表式（APA 引用行） |
 | 6 | `collection`（id `news`） | `page_type: blog`、`count: 10`、`order: desc`、`view: card`、`spacing.padding: [0,0,0,0]` | 新闻卡片列表，锚点 `#news` |
 
-首页现为 **6 个区块**。模板自带、带 `demo: true` 的「Build your own academic website」`cta-card` 已删除；
+首页现为 **6 个区块**，顺序固定为「议程 → 成果 → 论文 → 动态」。`talks` 区块已移除，`/events/` 不再出现在首页与导航。
+模板自带、带 `demo: true` 的「Build your own academic website」`cta-card` 已删除；
 如未来需要开源工具入口，按 R12 新增自有区块，不恢复模板宣传语。
 
 区块顺序 = 数组顺序；删除区块 = 删除对应 `- block:` 项；新增区块 = 往 `sections` 追加。
@@ -194,18 +207,18 @@ html { font-size: 15px; }
 
 `type: landing`，`design.spacing: '5rem'`。区块：
 `resume-experience`（`date_format: 'January 2006'`，`is_education_first: false`）
-→ `resume-skills`（标题 `Skills & Hobbies`）
-→ `resume-awards`（标题 `Awards`）
+→ `resume-skills`（标题 `Technical Stack / Focus Areas`）
 → `resume-languages`（标题 `Languages`）
 
-数据全部来自 [data/authors/me.yaml](data/authors/me.yaml)；`awards` 在数据文件里被注释掉，
-所以 Awards 区块当前为空 —— 这是内容问题，不是样式 bug。
+`resume-awards` 已移除（数据文件里的 `awards` 仍保持注释状态），不再展示空的奖项区块；
+技能区标题从 `Skills & Hobbies` 改为客观的 `Technical Stack / Focus Areas`，避免“求职简历 + 个人生活秀”的观感。
+数据全部来自 [data/authors/me.yaml](data/authors/me.yaml)。
 
 ### 4.3 [content/projects/_index.md](content/projects/_index.md)
 
 `spacing: '5rem'`；`collection` + `view: article-grid` + `columns: 3`，
 并关闭 `show_date` / `show_read_time` / `show_read_more`，`fill_image: false`
-→ 三列纯图卡网格，无元信息。
+→ 三列纯文字卡网格，无元信息。区块文案使用中性工作档案措辞，并包含 `/viz2.html` 独立报告入口。
 
 ### 4.4 [content/courses/_index.md](content/courses/_index.md)
 
@@ -258,19 +271,166 @@ cover:
 
 ---
 
-## 5. 当前视觉语言总结（判断"是否跑偏"的基准）
+## 5. 视觉风格画像（"是什么风格 / 给人什么观感"的基准）
 
-1. **无衬线工程感**：正文与标题使用 sans（Inter），笔画均匀、界面感强，不再是书斋式衬线。
-2. **冷静的单主色**：全站彩色元素都来自 `primary-*`（深海青蓝 `#1E4D6B`，暗色档 `#5A8FAD`），没有第二种强调色；彩色只出现在链接、按钮、标签、渐变网格。
-3. **紧凑舒展**：15px 基准 + 正文 15px / 1.65 行高，窄栏兼顾普通读者的长文可读性。
-4. **窄正文栏**：正文 680px，长文阅读体验优先于满屏铺开。
-5. **利落小圆角**：`radius: sm`，微圆角偏硬朗，既不是直角，也不是大圆角胶囊风。
-6. **居中导航 + 吸顶**：`navbar`、半透明吸顶、居中菜单。
-7. **极简页脚**：`minimal`，无多列站点地图。
-8. **明暗双模式**：`mode: system`，必须同时验证 light / dark 两套观感。
-9. **首页重、子页轻**：首页 3rem 间距 + 渐变网格 hero；子页 5rem 间距、纯内容区块。
+> 本节回答三件事：**它是什么风格**、**它给人什么观感**、**出现什么变化就不再是这个风格**。
+> 修改前用它校准，修改后用它复核；§5.8 是最快的判定方法。
 
-任何修改若造成「出现第二个主色 / 全站无衬线 / 大圆角胶囊 / 满宽长文」，即视为偏离风格，需要回退。
+### 5.1 风格命名与族谱
+
+**主名：冷调学术现代主义（Cool Academic Modernism）。**
+
+它不是某个模板的默认长相，而是三股设计传统的交集：
+
+| 来源 | 借来的东西 | 页面上的表现 |
+|---|---|---|
+| 瑞士国际主义排版 | 网格、无衬线、左对齐、去装饰、用留白建立层级 | 单栏正文、栅格卡片、强标题层级、无花纹无边框装饰 |
+| 学术工作档案 / 论文排版 | 引用列表、目录、阅读时长、APA 引用、克制的信息密度 | `citation` 视图、`#news` 锚点、阅读时长、文献行（简历结构已弱化为工作记录） |
+| 当代工程极简界面 | 低饱和单主色、微圆角、吸顶导航、明暗切换 | `primary-*` 单色体系、`radius: sm`、半透明吸顶 navbar |
+
+**参照坐标：**
+
+- 像：欧美高校研究者的工作档案页；排版良好的论文预印本；克制版的 Linear / Vercel 文档界面。
+- 不像：求职简历模板；Notion 暖米色模板；作品集式的满屏大图与滚动动效；SaaS 营销页的彩色渐变与玻璃拟态；复古报刊的衬线大标题。
+
+**双轨战略：两套并存的视觉体系（不要混用）：**
+
+| | 站点本体（Hugo 主题） | 独立报告 `viz2.html` |
+|---|---|---|
+| 定位 | 技术底座与工作档案，面向技术界与专业评估者 | 深度实证 / 普惠解读 / 数据反制专案，面向更广泛受众 |
+| 入口 | 主导航 + 首页 Selected Work 区块 | 主站项目区块内的明确链接，视觉隔离 |
+| 底色 | 白 / 主题深色表面 | 暖纸色 `#F4F1EB` |
+| 字体 | Inter 无衬线 | Noto Serif SC + Noto Sans SC + IBM Plex Mono |
+| 圆角 | `sm` 微圆角 | 10px 卡片 |
+| 气质 | 冷、干净、界面感、实干 | 暖、书卷、报告感、可传播 |
+
+二者只共享同一种主色（`#1E4D6B`）。主站负责“可信的工程底座”，报告负责“可读的公共证据”；
+站点永远保持白底冷调，不要把 `viz2.html` 的暖纸色、衬线标题、橙绿辅色带回站点。
+
+### 5.2 观感分层：从第一眼到久读
+
+**远看（0.1–3 秒）：一张被放大排版的论文首页。**
+大面积白、极少蓝、没有装饰插画，也没有背景渐变或大图。首屏只有纯底色、一个小圆头像和几行文字，像一份刚打印出来的工作说明；先看到姓名，随即被下方的引文与三条工作主线接住。
+
+**近看（3–30 秒）：一种颜色同时编码"重点"与"可操作"。**
+链接、按钮、标签、技能条、引文边线全部来自同一个 `primary`。没有第二个彩色争夺注意力，视线不必在多种颜色之间切换，认知负担很低；"哪里能点、哪里是重点"由同一种蓝统一回答。
+
+**久读（10 分钟以上）：像一本排版克制的学术小册子。**
+15px 字号、1.65 行高、680px 栏宽，接近印刷品的正文密度。字号比常见网页小一档，让页面显得"资料化、专业化"，而不是"消费级营销"；舒展的行距又把小字带来的拥挤感抵消掉。
+
+**触感：平、薄、纸卡感。**
+`radius: sm` 的微圆角，配合克制的边线与阴影，让卡片和按钮像裁切整齐的纸卡或金属薄片，而不是气泡、胶囊或塑料。没有厚投影、没有玻璃拟态，界面是"平"的。
+
+**光感：冷白光。**
+白底 + 冷蓝，整体像 6500K 的屏幕白或实验室照明，不是米黄纸张的暖光。唯一偏暖的东西来自内容图片本身。
+
+**暗色模式：夜海，不是霓虹。**
+主色提亮到 `#5A8FAD`（同色相、进一步降饱和），表面与文字交给主题深色灰阶；蓝色仍是画面里唯一的彩色。明暗切换应像"关掉顶灯"，而不是"打开霓虹"。
+
+### 5.3 情绪坐标（风格雷达）
+
+0–10 打分，**10 表示更靠近左侧端点**：
+
+| 维度 | 读数 | 解读 |
+|---|---|---|
+| 冷 ↔ 暖 | 8.5 冷 | 深海青蓝 + 冷白，几乎无暖色 |
+| 静 ↔ 动 | 8.5 静 | 不做滚动叙事、视差、自动轮播 |
+| 克制 ↔ 张扬 | 9 克制 | 无大色块、无插画、无夸张字重 |
+| 简 ↔ 繁 | 7.5 简 | 单一强调色 + 单一字体家族 + 少量形状 |
+| 硬 ↔ 软 | 6 偏硬 | 微圆角、细边，利落但不锋利 |
+| 疏 ↔ 密 | 6 偏舒 | 区块留白舒适，正文信息密度中上 |
+| 学术 ↔ 商业 | 8.5 学术 | 引用列表、阅读时长、CV 结构 |
+| 权威 ↔ 亲和 | 6.5 偏权威 | 冷蓝 + 小字 + 结构感带来可信，而非亲切 |
+
+读法：这些分数是改稿的报警线。把任一维度向反方向推 3 分以上（例如改成暖色、加大圆角、加入动效），页面就会滑向另一种风格。
+
+### 5.4 量化指纹（可测量，不靠感觉）
+
+| 维度 | 当前值 | 换算 / 说明 | 对观感的贡献 |
+|---|---|---|---|
+| 强调色数量 | **1** | 仅 `primary-*`，无第二彩色 | 冷静、统一、低噪音 |
+| 主色 | `#1E4D6B` | ≈ `hsl(203 56% 27%)` | 深海青蓝：可信、理性、微技术感 |
+| 暗色主色 | `#5A8FAD` | ≈ `hsl(202 34% 52%)` | 同色相提亮，保持身份连续 |
+| 饱和度上限 | 56%（亮）/ 34%（暗） | 低饱和 | 不喧闹、不"互联网感" |
+| 中性色 | 白 + 主题灰阶 | `neutral` 未覆盖 | 页面像白纸/白墙，不偏黄 |
+| 字体 | Inter（`sans`） | 单一家族 | 界面感、文档感、中性 |
+| 基准字号 | 15px | 0.9375 × 浏览器默认 | 比常见网页小约 6.25%，更"资料化" |
+| 正文字号 | 1rem = 15px | `custom.css` | 与基准一致，不额外放大 |
+| 正文栏宽 | 680px | ≈ 45em ≈ 75ch | 长文可读区间的上沿 |
+| 正文行高 | 1.65 | 窄栏小字需更舒展 | 久读不累 |
+| 正文字号跨度 | 13.1–18.75px | `text-sm` → `text-xl`（不含标题层级） | 元信息与正文差距小，层级不靠夸张字号 |
+| 圆角 | `sm` | 主题微圆角档 | 利落、纸卡感，不成胶囊 |
+| 区块节奏 | 首页 45px / 子页 75px | `3rem` / `5rem` @15px | 首屏重、内页松 |
+| 首屏背景 | 纯色，无装饰 | `gradient_mesh` 关闭 | 文档感、实干感，不做展示型 hero |
+| 导航 | 5 项、居中、吸顶、半透明 | `navbar` | 稳定、可预期、不抢内容 |
+| 页脚 | `minimal` | 无多列站点地图 | 收尾轻，不拖沓 |
+| 文章封面遮罩 | 底部 40% 渐变 + 80px 渐隐 | 标准写法见 §4.6 | 图片上的标题始终可读 |
+| 动效 | 仅必要状态反馈 | 不做滚动动画/视差/轮播 | 安静，注意力留给内容 |
+
+### 5.5 七个要素如何共同产生这种观感
+
+| 要素 | 做法 | 传递的信息 |
+|---|---|---|
+| 色彩 | 单一低饱和冷蓝 + 白/灰 | "这是机构与研究者，不是品牌营销" |
+| 字体 | Inter 无衬线、单一家族、偏小字号 | "这是文档与工具，不是杂志" |
+| 网格 | 居中窄栏 + 1/2/3 列卡片 | "信息有结构，可扫描" |
+| 形状 | 微圆角、细边、轻层次 | "现代，但不轻浮" |
+| 空间 | 首页紧、子页松、区块留白 | "有呼吸感，但不散" |
+| 图像 | 圆形头像；封面统一遮罩；emoji 只作轻标记 | "人 + 内容"，不让图片变成主角 |
+| 动效 | 只有必要的状态反馈 | "安静，别表演" |
+
+### 5.6 风格关键词（检索、复现、给 AI 下指令时用）
+
+- 中文：冷调、低饱和、深海青蓝、学术现代主义、单主色、无衬线、窄栏长文、微圆角、纸卡感、克制、可信、安静的界面、结构化、去装饰、留白。
+- 英文：cool-toned, low-saturation, deep-sea teal-blue, academic modernism, single accent, Inter, narrow measure, micro-radius, flat surfaces, quiet UI, structured, restrained, trustworthy, editorial-technical.
+
+可直接粘贴给其他 AI 的风格约束：
+
+```text
+保持冷调学术现代主义：白底或主题深色表面，唯一强调色是深海青蓝 #1E4D6B
+（暗色 #5A8FAD）；正文 Inter 15px、680px 窄栏、1.65 行高；卡片微圆角、
+细边、轻层次；导航居中吸顶、半透明；首屏为纯底色，不放渐变网格/大图/装饰。
+禁止：第二强调色、暖纸色底、衬线正文、大圆角/胶囊、玻璃拟态、厚投影、
+滚动动画/视差、彩色渐变、字体混搭、Download CV 式求职 CTA。
+```
+
+### 5.7 反风格：出现即跑偏
+
+以下任意一条成立，就说明已经离开本站风格，应回退：
+
+1. UI 里出现第二个彩色（红/绿/橙/紫的语义色块、彩色标签、彩虹渐变）。
+2. 站点底色变成米黄、暖灰或纯黑；或把 `viz2.html` 的暖纸色带进站点。
+3. 正文改用衬线字体，或标题使用装饰性 / 手写字体。
+4. 主要卡片圆角超过 8px、出现胶囊按钮或大圆角"气泡"。
+5. 正文栏宽超过 720px 或字号小于 14px，破坏久读体验。
+6. 加入玻璃拟态、彩色投影、发光边框、3D 倾斜等炫技效果。
+7. 加入滚动动画、视差、自动轮播、打字机等持续运动。
+8. 用满屏大图 / 插画替代文字层级，或让 emoji 变成主要视觉语言。
+9. 重新出现求职型元素：`Download CV`、`Skills & Hobbies`、奖项墙、把 Talks 或社交置于 Projects 之前。
+
+### 5.8 三步风格距离测试
+
+1. **去色测试**：截图转灰度，信息层级仍然清楚 → 结构优先，符合；若必须靠颜色才分得清主次，说明跑偏。
+2. **三色测试**：除主色与灰阶外，UI 中还能找到第三种彩色吗？能 → 跑偏。
+3. **盲测**：遮住姓名与 logo，页面看起来像"研究者工作档案 / 学术文档"，而不是"求职简历 / SaaS 落地页 / 设计作品集" → 符合。
+
+### 5.9 一句话自述（供快速引用）
+
+> 白底冷白、单一深海青蓝；首屏纯底色 + 小圆头像，像一份刚打印的工作说明；Inter 15px 窄栏、引文一条主色细边；微圆角纸卡、居中吸顶的五项导航；克制到几乎看不见设计，但议程、成果、论文、动态的次序一眼可读。
+
+### 5.10 去简历化与双轨战略（结构性约束）
+
+**目标不是"换文案"，而是改变页面在替谁说话。** 页面首先替"事"说话——科技底层工程、公共普惠实践、规则与技术反制——而不是替"求职者"说话。
+
+执行原则：
+
+1. **弱化个人推销**：首屏不用装饰性渐变网格；头像降为 `small`；不出现 `Download CV`；不放奖项墙或 `Skills & Hobbies`。
+2. **议程优先**：首屏之后第一块必须是 `Working Agenda`（指导思想引文 + 三条工作主线），再由 `Projects` 承接落地成果，最后才是 `Papers` 与 `News`。
+3. **工作目录式导航**：`Agenda / Projects / Papers / News / Experience` 五项；`Talks`、`Courses` 保留页面但不进导航。
+4. **成果先于履历**：首页 `Projects` 先于 `Publications`；`/events/` 不再占据首屏。
+5. **双轨不混色**：主站保持冷调、白底、Inter、单主色；`viz2.html` 体系承担"深度实证 / 普惠解读 / 数据反制"的公共传播，只通过主站项目区块的明确链接进入，不把暖纸色、衬线标题、橙绿辅色带回主站。
+
+判定：修改后若首页重新出现"Download CV / 奖项墙 / 个人生活展示 / 会议社交优先 / 装饰性 hero"，即视为回退到 CV 风格。
 
 ---
 
@@ -344,7 +504,7 @@ design:
       filters:
         brightness: 0.6
 ```
-可选项：`gradient_mesh`（跟随主色的渐变网格）、`image`（配 `filters` 调亮度/模糊）、纯色。
+可选项：`gradient_mesh`（当前关闭，去简历化后首屏保持纯色）、`image`（配 `filters` 调亮度/模糊）、纯色。
 三者**只启用一个**。
 
 ### R8 改头像
@@ -366,7 +526,7 @@ main:
     url: /publications/
     weight: 12
 ```
-同时检查 `header.align`（当前居中）与移动端折叠后项数是否过多（当前 7 项）。
+同时检查 `header.align`（当前居中）与移动端折叠后项数是否过多（当前 5 项）。
 
 ### R10 改正文栏宽 / 正文排版
 文件：`assets/css/custom.css`
@@ -445,12 +605,15 @@ sections:
 ## 8. 验证清单（改完必过）
 
 - [ ] `pnpm build` 无报错（本地无 Hugo 时以 CI `Deploy website to GitHub Pages` 通过为准；本地需 Hugo extended 0.152.2）。
-- [ ] `/` 首屏：渐变网格 / 头像 / `Download CV` 正常，hero 未溢出。
+- [ ] `/` 首屏：纯底色 + `small` 圆头像 + `Working Agenda`，无渐变网格 / `Download CV`，hero 未溢出。
+- [ ] `/` 区块顺序为 Agenda → Selected Work → Featured Publications → Recent Publications → Recent News。
+- [ ] `Selected Work` 区块文案中的 `/viz2.html` 链接可点，且报告保持暖纸色、与主站视觉隔离。
 - [ ] `/#news` 锚点能跳到新闻列表。
-- [ ] `/experience/`、`/projects/`、`/courses/` 三页栅格列数正确（1 / 3 / 1）。
-- [ ] 任意文章页：`.content` 宽度与字号符合预期，代码块、表格、公式不溢出。
+- [ ] `/experience/`、`/projects/`、`/courses/` 三页栅格列数正确（1 / 3 / 1）；`/experience/` 无 Awards 区块，技能标题为 `Technical Stack / Focus Areas`。
+- [ ] 任意文章页：`.content` 宽度与字号符合预期，代码块、表格、公式不溢出；`blockquote` 左侧 3px 主色细边、非斜体。
 - [ ] light / dark 两套模式逐页目测一次。
 - [ ] 375px / 768px / 1440px 三个宽度下无横向滚动、无文字截断。
+- [ ] 去色测试：首页截图转灰度后，议程、成果、论文、动态的层级仍清楚。
 - [ ] `assets/css/custom.css` 仍只包含必要规则，没有与 L1 令牌重复的定义。
 
 ---
@@ -488,4 +651,5 @@ sections:
 3. 用户说"某区块排布不对" → L3 `sections[].design`（`view` / `columns`）。
 4. 用户说"正文太宽/字太小" → `assets/css/custom.css` 的 `.content`。
 5. 用户说"某个元素长得不对" → 先确认主题是否有对应 token；没有才写 L4，且必须加注释。
-6. 任何修改完成后，执行第 8 节验证清单，并在回复中说明改了哪个文件、哪个键、影响了哪些页面。
+6. 用户说"太像简历 / 去简历化" → 按 §5.10：先改首页结构与区块顺序（§4.1），再改导航与 Experience（§3.5 / §4.2），不要只换文案。
+7. 任何修改完成后，执行第 8 节验证清单，并在回复中说明改了哪个文件、哪个键、影响了哪些页面。
