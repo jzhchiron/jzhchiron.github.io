@@ -32,3 +32,15 @@ previous:
   other: "Previous"
 next:
   other: "Next"
+empirical_dossiers:
+  other: "Empirical Dossiers"
+dossiers_note:
+  other: "Standalone interactive reports"
+selected_projects:
+  other: "Selected Projects"
+selected_papers:
+  other: "Selected Papers"
+recent_log:
+  other: "Recent Log"
+view_all:
+  other: "All"

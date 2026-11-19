@@ -32,3 +32,15 @@ previous:
   other: "上一篇"
 next:
   other: "下一篇"
+empirical_dossiers:
+  other: "实证专案"
+dossiers_note:
+  other: "独立交互报告"
+selected_projects:
+  other: "精选工程"
+selected_papers:
+  other: "精选研究"
+recent_log:
+  other: "近期纪要"
+view_all:
+  other: "全部"

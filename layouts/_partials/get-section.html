@@ -1,0 +1,13 @@
+{{- /* Returns a section's pages, falling back to the default language site.
+       Expects a dict: { "name": <section>, "site": <current Site> }.
+       Returns: { "pages": <sorted Pages>, "source": <Site that owns them>, "fromDefault": bool } */ -}}
+{{ $name := .name }}
+{{ $pages := where .site.RegularPages "Section" $name }}
+{{ $source := .site }}
+{{ $fromDefault := false }}
+{{ if eq (len $pages) 0 }}
+  {{ $pages = where site.Sites.Default.RegularPages "Section" $name }}
+  {{ $source = site.Sites.Default }}
+  {{ $fromDefault = true }}
+{{ end }}
+{{ return (dict "pages" ($pages.ByDate.Reverse) "source" $source "fromDefault" $fromDefault) }}
