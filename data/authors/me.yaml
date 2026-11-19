@@ -45,10 +45,6 @@ education:
     end: 2027-07-01
     summary: |
       Primarily mentored by Yang Guorong(杨国荣), Chiron's work centers round Concrecteness（具体）.
-    button:
-      text: Download dissertation
-      url: /resume.pdf
-      icon: hero/arrow-down-tray
 
 #experience:
  # - role: Senior AI Research Scientist

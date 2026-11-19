@@ -1,29 +1,6 @@
 ---
-title: 'Projects'
-date: 2024-05-19
-type: landing
-
-design:
-  # Section spacing
-  spacing: '5rem'
-
-# Page sections
-sections:
-  - block: collection
-    content:
-      title: Selected Projects
-      text: >-
-        Selected projects and field reports. The standalone empirical report —
-        [Older Adults' Digital Survival](/viz2.html) — is a self-contained HTML
-        document, visually isolated from this site.
-      filters:
-        folders:
-          - projects
-    design:
-      view: article-grid
-      fill_image: false
-      columns: 3
-      show_date: false
-      show_read_time: false
-      show_read_more: false
+title: "Projects"
+description: "Engineering projects, research prototypes, and standalone empirical dossiers."
 ---
+
+Engineering projects, research prototypes, and field notes are indexed below. The standalone dossier [Older Adults' Digital Survival](/viz2.html) is a self-contained interactive report maintained outside the main site's template system.

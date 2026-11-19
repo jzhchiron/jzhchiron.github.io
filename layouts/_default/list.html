@@ -5,6 +5,12 @@
   </header>
 
   {{ $pages := .Pages.ByDate.Reverse }}
+  {{ $fromDefault := false }}
+  {{ if .IsSection }}
+    {{ $listing := partial "get-section.html" (dict "name" .Section "site" .Site) }}
+    {{ $pages = $listing.pages }}
+    {{ $fromDefault = $listing.fromDefault }}
+  {{ end }}
   {{ if $pages }}
     <ol class="mt-8 border-t border-hairline">
       {{ range $pages }}
@@ -17,6 +23,7 @@
             <div class="min-w-0 flex-1">
               <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                 <a class="font-medium text-ink hover:text-accent" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                {{ if $fromDefault }}<span class="text-xs text-muted">[EN]</span>{{ end }}
                 {{ $pub := .Params.publication_short | default .Params.publication }}
                 {{ with $pub }}<span class="text-xs text-muted">{{ . | markdownify | plainify }}</span>{{ end }}
               </div>

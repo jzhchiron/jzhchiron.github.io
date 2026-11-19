@@ -1,13 +1,6 @@
 ---
-title: Recent & Upcoming Talks
-cms_exclude: true
-#url: talk
-
-# View
-view: card
-
-# Optional cover image (relative to `assets/media/` folder).
-image:
-  caption: ''
-  filename: ''
+title: "Talks & Events"
+description: "Talks, seminars, and public discussions."
 ---
+
+Talks, seminars, and public discussions are archived here.

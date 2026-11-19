@@ -2,6 +2,8 @@ name: Deploy website to GitHub Pages
 
 env:
   NODE_VERSION: '20'
+  HUGO_VERSION: '0.152.2'
+  PNPM_VERSION: '10.14.0'
 
 on:
   # Trigger the workflow every time you push to the `main` branch
@@ -28,30 +30,27 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-          # Fetch history for Hugo's .GitInfo and .Lastmod
+        # Fetch history for Hugo's .GitInfo and .Lastmod
         fetch-depth: 0
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: ${{ env.PNPM_VERSION }}
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-
-    - name: Setup pnpm
-      if: hashFiles('package.json') != ''
-      uses: pnpm/action-setup@v4
+        cache: 'pnpm'
 
     - name: Install dependencies
-      run: |
-        # Install Tailwind CLI if package.json exists
-        if [ -f "package.json" ]; then
-          echo "Installing Tailwind dependencies..."
-          pnpm install --no-frozen-lockfile || npm install
-        fi
+      run: pnpm install --no-frozen-lockfile
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3
       with:
-        hugo-version: '0.152.2'
+        hugo-version: ${{ env.HUGO_VERSION }}
         extended: true
 
       # Cache dependencies (Go modules, node_modules) - stable, rarely changes
@@ -81,9 +80,8 @@ jobs:
     - name: Build with Hugo
       env:
         HUGO_ENVIRONMENT: production
-      run: |
-        echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
-        hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        HUGO_BASEURL: "${{ steps.pages.outputs.base_url }}/"
+      run: hugo --minify
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v4
@@ -93,9 +91,9 @@ jobs:
   # Deploy website to GitHub Pages hosting
   deploy:
     needs: build
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    # Grant GITHUB_TOKEN the permissions required for a Pages deployment
     permissions:
-      pages: write # to deploy to Pages
+      pages: write # to deploy to GitHub Pages
       id-token: write # to verify the deployment originates from an appropriate source
     # Deploy to the github-pages environment
     environment:
