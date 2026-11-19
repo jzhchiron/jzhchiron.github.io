@@ -16,3 +16,19 @@ reading_time:
   other: "分钟阅读"
 current_language:
   other: "当前语言"
+back_to_list:
+  other: "返回"
+contents:
+  other: "目录"
+no_content:
+  other: "暂无内容"
+toggle_theme:
+  other: "切换明暗"
+standalone_dossier:
+  other: "独立专案"
+menu:
+  other: "菜单"
+previous:
+  other: "上一篇"
+next:
+  other: "下一篇"

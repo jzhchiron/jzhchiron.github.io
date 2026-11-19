@@ -1,11 +1,47 @@
 {{ define "main" }}
-  <h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1>
-  {{ with .Content }}<div class="prose content-prose mt-6">{{ . }}</div>{{ end }}
-  {{ if .Pages }}
-    <ul class="mt-8 space-y-3">
-      {{ range .Pages }}
-        <li><a class="text-accent underline decoration-hairline underline-offset-4 hover:decoration-current" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  <header class="max-w-[680px]">
+    <h1 class="text-2xl font-semibold tracking-tight text-ink">{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose content-prose mt-3">{{ . }}</div>{{ end }}
+  </header>
+
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ if $pages }}
+    <ol class="mt-8 border-t border-hairline">
+      {{ range $pages }}
+        <li class="border-b border-hairline py-4">
+          <div class="flex flex-col gap-1 sm:flex-row sm:gap-6">
+            <div class="shrink-0 text-xs tabular-nums text-muted sm:w-20 sm:pt-1">
+              {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01" }}</time>{{ end }}
+            </div>
+
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                <a class="font-medium text-ink hover:text-accent" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                {{ $pub := .Params.publication_short | default .Params.publication }}
+                {{ with $pub }}<span class="text-xs text-muted">{{ . | markdownify | plainify }}</span>{{ end }}
+              </div>
+
+              {{ $summary := .Params.summary | default (plainify .Summary) }}
+              {{ with $summary }}<p class="mt-1 text-sm leading-relaxed text-muted">{{ . }}</p>{{ end }}
+
+              {{ if or .Params.links .Params.tags }}
+                <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  {{ partial "page-links.html" . }}
+                  {{ with .Params.tags }}
+                    <ul class="flex flex-wrap gap-1.5">
+                      {{ range first 3 . }}
+                        <li class="rounded-sm border border-hairline px-1.5 py-0.5 text-xs text-muted">{{ . }}</li>
+                      {{ end }}
+                    </ul>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </li>
       {{ end }}
-    </ul>
+    </ol>
+  {{ else }}
+    <p class="mt-8 text-sm text-muted">{{ i18n "no_content" }}</p>
   {{ end }}
 {{ end }}

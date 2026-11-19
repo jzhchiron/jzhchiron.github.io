@@ -1,0 +1,16 @@
+main:
+  - name: 首页
+    url: /zh/
+    weight: 10
+  - name: 工程
+    url: /projects/
+    weight: 11
+  - name: 研究
+    url: /publications/
+    weight: 12
+  - name: 纪要
+    url: /blog/
+    weight: 13
+  - name: 履历
+    url: /experience/
+    weight: 20

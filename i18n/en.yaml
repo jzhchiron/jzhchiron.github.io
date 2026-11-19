@@ -16,3 +16,19 @@ reading_time:
   other: "min read"
 current_language:
   other: "Current language"
+back_to_list:
+  other: "Back to"
+contents:
+  other: "Contents"
+no_content:
+  other: "Nothing here yet."
+toggle_theme:
+  other: "Toggle theme"
+standalone_dossier:
+  other: "Standalone Dossier"
+menu:
+  other: "Menu"
+previous:
+  other: "Previous"
+next:
+  other: "Next"

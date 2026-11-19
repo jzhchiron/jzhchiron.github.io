@@ -1,0 +1,12 @@
+{{ with .Params.links }}
+  <ul class="flex flex-wrap gap-1.5">
+    {{ range . }}
+      {{ $url := .url | default "" }}
+      {{ $label := "" }}
+      {{ with .name }}{{ $label = . }}{{ else }}{{ with .type }}{{ $label = upper . }}{{ end }}{{ end }}
+      {{ if and $url $label }}
+        <li><a class="inline-block rounded-sm border border-hairline px-1.5 py-0.5 text-xs text-muted hover:border-accent hover:text-accent" href="{{ $url }}" rel="noopener">{{ $label }}</a></li>
+      {{ end }}
+    {{ end }}
+  </ul>
+{{ end }}

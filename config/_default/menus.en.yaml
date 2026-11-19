@@ -1,0 +1,16 @@
+main:
+  - name: Index
+    url: /
+    weight: 10
+  - name: Projects
+    url: /projects/
+    weight: 11
+  - name: Papers
+    url: /publications/
+    weight: 12
+  - name: Log
+    url: /blog/
+    weight: 13
+  - name: Bio
+    url: /experience/
+    weight: 20

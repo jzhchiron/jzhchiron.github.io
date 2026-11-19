@@ -1,5 +1,23 @@
+{{ $github := "" }}
+{{ with site.Data.authors }}
+  {{ with .me }}
+    {{ range .links }}
+      {{ $icon := .icon | default "" }}
+      {{ if and (not $github) (in (lower $icon) "github") }}
+        {{ with .url }}{{ $github = . }}{{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 <footer class="border-t border-hairline">
-  <div class="mx-auto w-full max-w-3xl px-6 py-6 text-sm text-muted">
-    <p>&copy; {{ now.Year }} {{ .Site.Params.siteName | default .Site.Title }}. {{ i18n "footer_copyright" }}</p>
+  <div class="mx-auto flex w-full max-w-3xl flex-col gap-2 px-5 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+    <p>&copy; {{ now.Year }} {{ .Site.Params.siteName | default .Site.Title }}</p>
+    <div class="flex items-center gap-4">
+      <a class="hover:text-accent" href="{{ "index.xml" | relLangURL }}">RSS</a>
+      {{ with $github }}
+        <a class="hover:text-accent" href="{{ . }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      {{ end }}
+    </div>
   </div>
 </footer>

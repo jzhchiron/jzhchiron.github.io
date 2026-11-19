@@ -1,11 +1,57 @@
 {{ define "main" }}
-  <article>
-    <h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1>
-    <p class="mt-2 text-sm text-muted">
-      {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>{{ end }}
-      {{ if and .Content (not .Date.IsZero) }} · {{ end }}
-      {{ if .Content }}{{ .ReadingTime }} {{ i18n "reading_time" }}{{ end }}
+  <article class="mx-auto w-full max-w-[680px]">
+    {{ with .CurrentSection }}
+      {{ if not .IsHome }}
+        <a class="text-sm text-muted hover:text-accent" href="{{ .RelPermalink }}">← {{ i18n "back_to_list" }} {{ .LinkTitle }}</a>
+      {{ end }}
+    {{ end }}
+
+    <h1 class="mt-4 text-3xl font-semibold tracking-tight text-ink">{{ .Title }}</h1>
+
+    <p class="mt-2 flex flex-wrap items-center gap-x-2 text-sm text-muted">
+      {{ if not .Date.IsZero }}
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+        <span aria-hidden="true">·</span>
+      {{ end }}
+      <span>{{ .ReadingTime }} {{ i18n "reading_time" }}</span>
     </p>
+
+    {{ with .Params.tags }}
+      <ul class="mt-3 flex flex-wrap gap-1.5">
+        {{ range . }}
+          <li class="rounded-sm border border-hairline px-1.5 py-0.5 text-xs text-muted">{{ . }}</li>
+        {{ end }}
+      </ul>
+    {{ end }}
+
+    {{ $pub := .Params.publication }}
+    {{ if or $pub .Params.abstract .Params.links }}
+      <div class="mt-5 border-t border-hairline pt-4 text-sm text-muted">
+        {{ with $pub }}<p>{{ . | markdownify }}</p>{{ end }}
+        {{ with .Params.abstract }}<div class="mt-2 leading-relaxed">{{ . | markdownify }}</div>{{ end }}
+        {{ if .Params.links }}<div class="mt-3">{{ partial "page-links.html" . }}</div>{{ end }}
+      </div>
+    {{ end }}
+
+    {{ $toc := .TableOfContents }}
+    {{ if and $toc (ne .Params.toc false) (gt .WordCount 200) }}
+      <details class="mt-6 rounded-md border border-hairline bg-subtle px-4 py-3 text-sm">
+        <summary class="cursor-pointer list-none text-muted hover:text-ink">{{ i18n "contents" }}</summary>
+        <div class="content-prose mt-3">{{ $toc }}</div>
+      </details>
+    {{ end }}
+
     <div class="prose content-prose mt-8">{{ .Content }}</div>
+
+    {{ $prev := .PrevInSection }}
+    {{ $next := .NextInSection }}
+    {{ if or $prev $next }}
+      <nav class="mt-10 border-t border-hairline pt-4 text-sm" aria-label="{{ i18n "previous" }} / {{ i18n "next" }}">
+        <div class="flex flex-col gap-2 sm:flex-row sm:justify-between">
+          <div>{{ with $prev }}<a class="text-muted hover:text-accent" href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}</div>
+          <div class="sm:text-right">{{ with $next }}<a class="text-muted hover:text-accent" href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}</div>
+        </div>
+      </nav>
+    {{ end }}
   </article>
 {{ end }}
