@@ -4,14 +4,14 @@ description: "Research, engineering practice, education, and public contact info
 toc: false
 ---
 
-Zhehao Jin (Chiron) is a researcher in model theory and a systems builder with a background in philosophy. His research examines interactions between model theory and number theory; his engineering work focuses on formal methods, open tools, and public-interest technology. He is affiliated with [East China Normal University](https://www.ecnu.edu.cn/).
+Zhehao Jin (Chiron) is a researcher in model theory and an AI systems developer with a background in philosophy. His research examines interactions between model theory and number theory; his engineering work focuses on formal methods, open tools, and public-interest technology. He is affiliated with [East China Normal University](https://www.ecnu.edu.cn/).
 
 ## Research
 
-- Model theory and its interactions with number theory.
+- Model theory and its intersections with number theory.
 - Abstract elementary classes, set theory, and the Curry–Howard isomorphism.
 - The history of twentieth-century foundations of mathematics.
-- Formal theories of intelligence, including AIXI, and the engineering of normative agents.
+- Formal theories of intelligence, including AIXI, and the practical engineering deployment of normative agents.
 - Philosophical inquiry into the concrete.
 
 ## Engineering Practice
